@@ -1,0 +1,151 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+
+/* @font-face {
+    font-family: 'Brush Script MT';
+    src: url('//db.onlinewebfonts.com/c/33bc06ea126d3ff79886277122f1f510?family=Brush+Script+MT') format('woff');
+  }
+  
+  .fotaza h2 {
+    font-family: 'Brush Script MT';
+    font-size: 48px;
+    font-weight: bold;
+    color: #ff0000; 
+  }  */
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #3498db;
+    padding: 20px;
+    height: 100vh;
+    text-align: center;
+  }
+
+  h2{
+    color:red ;
+  }
+  
+  .content-container {
+    flex: 2;
+    /*padding: 20px; */
+    background-color: white;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  form input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .button {
+    background-color: white;
+    color: #3498db;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    align-self: center;
+  }
+  
+  .photosUp {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+  }
+.fotaza{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+    
+}
+.fotazaImg{
+    z-index: 999;
+}
+
+
+  .photosBottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
+  }
+  
+  .photo {
+    width: 30%;
+    height: auto;
+    object-fit: cover;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
+  
+  .photo1 {
+    top: 20px;
+    left: 0;
+    z-index: 2;
+  }
+  
+  .photo2 {
+    top: -20px;
+    left: 20px;
+    z-index: 3;
+  }
+  
+  .photo3 {
+    top: 0;
+    left: 40px;
+    z-index: 4;
+  }
+  
+  .photo4 {
+    top: 0px;
+    left: 20px;
+    z-index: 5;
+  }
+  
+  .photo5 {
+    top: 40px;
+    left: 0;
+    z-index: 4;
+  }
+  
+  .photo6 {
+    top: 20px;
+    left: -20px;
+    z-index: 3;
+  }
+
+  .log-social{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+  .socialLoggin{
+    width: 35px;
+    height: 35px;
+    
+  }
