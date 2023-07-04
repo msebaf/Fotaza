@@ -4,8 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
+const session = require("express-session");
 
-const session = require("express-session")
+var LocalStrategy = require("passport-local").Strategy;
+var EstaAutenticado = require('./routes/auth').EstaAutenticado;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -15,39 +17,34 @@ var authRouter = require('./routes/auth').router;
 
 var app = express();
 
-var LocalStrategy = require("passport-local").Strategy;
-
-// view engine setup
+// Configuración del motor de vistas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// Middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/perfil', perfilRouter);
-app.use('/principal', principalRouter);
-app.use('/auth', authRouter);
-
-
-// view engine setup
+// Configuración de sesión
 app.use(
   session({
     secret: "perro",
-    resave:true,
-    saveUninitialized:true,
-    cookie:{ 
-      
-      maxAge: 1*60*60*1000
+    resave: true,
+    saveUninitialized: true,
+    cookie: { 
+      maxAge: 1 * 60 * 60 * 1000
     }
-   
   })
-)
+);
 
+// Configuración de Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Configuración de las estrategias de Passport
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
@@ -59,29 +56,30 @@ passport.use(new LocalStrategy(
   }
 ));
 
-
-
-
 passport.serializeUser(function(user, done){
-  done(null,user);
+  done(null, user);
 });
 
-passport.deserializeUser(function(user,done){
+passport.deserializeUser(function(user, done){
   done(null, user);
-})
+});
 
-// catch 404 and forward to error handler
+// Rutas
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/perfil', perfilRouter);
+app.use('/principal',/* EstaAutenticado,*/ principalRouter);
+app.use('/auth', authRouter);
+
+// Manejador de errores 404 y de errores generales
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

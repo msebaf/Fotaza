@@ -18,15 +18,15 @@ module.exports = (sequelize, DataTypes) => {
    
     mail:{
        type: DataTypes.STRING,
-       allowNull: true
+       allowNull: false
     },
     contrasenia :{
       type : DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     usuario: {
       type:DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     }
   }, {
     sequelize,

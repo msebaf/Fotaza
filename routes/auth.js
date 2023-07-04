@@ -18,38 +18,59 @@ router.get("/github/callback", passport.authenticate("github", {failureRedirect:
 
 )*/
 
-router.post("/registrar", async(req,res)=>{
-    try{
-    const salt = await bcrypt.genSalt(10)
-    const password = await bcrypt.hash(req.body.Password, salt);
-    console.log(req.body.Email + " " + req.body.UserName + " " + password)
-    const user = await usuario.create({mail:req.body.Email, nombre:req.body.UserName, contrasenia: password })
-    
-    res.send('<script>alert("Usuario Creado"); window.location.href = "/index"; </script>')
-        
+router.post("/registrar", async (req, res) => {
+    try {
+      const salt = await bcrypt.genSalt(10);
+      const password = await bcrypt.hash(req.body.Password, salt);
+      console.log(req.body.Email + " " + req.body.UserName + " " + password);
+      const user = await usuario.create({
+        mail: req.body.Email,
+        usuario: req.body.UserName,
+        contrasenia: password
+      });
+  
+      const response = {
+        message: "Usuario Creado"
+      };
+  
+      // Enviar respuesta JSON al cliente
+      res.json(response);
+    } catch (error) {
+        console.log(error.errors[0].path);
+        let palabraError ="";
+        if(error.errors[0].path == "usuario"){
+            palabraError="El usuario ya esta en uso"
+        }
+        else{
+            palabraError="Ya existe una cuenta con ese Email"
+        }
+      const response = {
+        message: `${palabraError}`
+      };
+  
+      // Enviar respuesta JSON al cliente
+      res.json(response);
     }
-    catch{
-        res.send('<script>alert("Ya existe una cuenta con ese mail"); window.location.href = "/index"; </script>')
-    }
-    
-})
+  });
 
 router.post("/login", async (req,res)=>{
    
-    const user = await usuario.findOne({where:{mail:req.body.mail}})
+    const user = await usuario.findOne({where:{usuario:req.body.UserName}})
     if(user){
-       const validado = await bcrypt.compare(req.body.pass, user.contrasenia)
+        console.log(user)
+       const validado = await bcrypt.compare(req.body.Password, user.contrasenia)
        if(validado){
         req.session.isAuthenticated=true;
         req.session.user= user.id;
-        res.redirect("/todo");
+        console.log(req.session.user)
+        res.redirect("/principal");
        }
        else{
-        res.send('<script>alert("Password incorrectas"); window.location.href = "/index"; </script>')
+        res.send('<script>alert("Password incorrecto"); window.location.href = "/index"; </script>')
        }
     }
     else{
-        res.send('<script>alert("Email no registrado"); window.location.href = "/index"; </script>')
+        res.send('<script>alert("Usuario no registrado"); window.location.href = "/index"; </script>')
     }
 })
 
