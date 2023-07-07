@@ -52,7 +52,10 @@ block content
           dataType: "json",
           success: function(response) {
             alert(response.message);
-            window.location.href = "/index";
+            if(response.message = "Usuario Creado"){
+              $("#signup-form input[type='text'], #signup-form input[type='password'], #signup-form input[type='email']").val("");
+            }
+            
           },
           error: function(error) {
             console.log(error);
