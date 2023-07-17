@@ -2,11 +2,17 @@ extends layout
 
 block content
 
-    link(rel="stylesheet", href="stylesheets/perfil.css")
+    link(rel="stylesheet", href="/stylesheets/perfil.css")
+
+    .cabecera 
+        input(type="search", name="biscadorFotos", placeholder="Busca una foto", id="buscaFotos") 
+        .filtros 
+            h2 Mi Perfil
+        a(href="/principal/", id="linkPrincipal") Principal
 
     .container-perfil 
-        img(src="images/perfil.jpg", alt="", class="img-perfil")
-        h2 soy un nombre de usuario
+        img(src="/images/perfil.jpg", alt="", class="img-perfil")
+        h2 Peperesz2341
         br
         .datos-personales 
             h4 Nombre: Paco
@@ -15,8 +21,37 @@ block content
         h3 Intereses 
         p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Duis a arcu convallis, gravida purus eget, mollis diam.
 
-    br
+        br
 
-    h2 Mis Fotos 
-    .container-fotos 
-        p Agregar imagnes por codigo
+    
+        .container-fotos 
+            h2 Mis Fotos 
+            .container-fluid
+                
+                each imagen in imagenes
+                    br
+                    br
+                    .row
+                        h3= imagen.titulo
+                        .col-3
+                            | Contenido de la columna 1
+                        .col-6(class= "foto-cont")
+                            .row(class="datos-Row")
+
+                                .col-12
+                                    .datos
+                                        p= "Autor: " + imagen.autor
+                                        p= "imagen.ranking"
+                                
+                            .row(class="datos-Row") 
+                                
+                                .col-12
+                                    .datos
+                                        
+                                        p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
+                                        
+                                        p= "Hora: " + new Date(imagen.fechaCreacion).toLocaleTimeString()
+                                
+                            img(src="/"+imagen.path, alt="")
+                        .col-3 
+                            | Contenido de la columna 3

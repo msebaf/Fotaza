@@ -1,19 +1,71 @@
+body{
+    margin: 0px;
+    padding: 0px;
+
+}
+
 .cabecera{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+    background-color: #3498db;
+  
+    width: 100%;
+    height: 5vh;
+ 
+
 }
 
+#buscaUsuario{
+    border-radius: 25px;
+    height: 60%;
+    
+}
+
+.filtro{
+    border-radius: 25px;
+}
+
+#linkPerfil{
+    color: white;
+    text-decoration: none;
+}
+
+#linkPerfil:visited{
+    color: white;
+    text-decoration: none;
+    
+    
+}
+
+#linkPerfil:hover{
+    color: rgb(190, 167, 167);
+}
 .container{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.datos-Row{
+    width: 100%;
+}
+
 .datos{
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     
+    
+}
+
+.foto-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .comentarios{
@@ -22,9 +74,15 @@
     border-style: solid;
 }
 
+img{
+    width: 100%;
+    height: 100%;
+}
+
 #img-perfil-comentario{
     display: inherit;
     height: 75px;
     width: 75px;
     border-radius: 50%;
 }
+

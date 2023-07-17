@@ -61,7 +61,8 @@ router.post("/login", async (req,res)=>{
        const validado = await bcrypt.compare(req.body.Password, user.contrasenia)
        if(validado){
         req.session.isAuthenticated=true;
-        req.session.user= user.id;
+        req.session.autorId= user.id;
+        req.session.user = user.usuario
         console.log(req.session.user)
         res.redirect("/principal");
        }
