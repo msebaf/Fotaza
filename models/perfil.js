@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+     
+      perfil.hasMany(models.imagen,{
+        foreignKey: 'autorId'
+      })
       
     }
   }
@@ -41,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     nombreUsuario:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    avatar:{
       type: DataTypes.STRING,
       allowNull: true
     }

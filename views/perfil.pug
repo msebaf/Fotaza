@@ -11,15 +11,15 @@ block content
         a(href="/principal/", id="linkPrincipal") Principal
 
     .container-perfil 
-        img(src="/images/perfil.jpg", alt="", class="img-perfil")
-        h2 Peperesz2341
+        img(src=perfilUsuario.avatar, alt="", class="img-perfil")
+        h2= perfilUsuario.nombreUsuario
         br
         .datos-personales 
-            h4 Nombre: Paco
-            h4 Apellido: Perez
+            h4="Nombre: " + perfilUsuario.nombre
+            h4="Apellido: "+ perfilUsuario.apellido
         br
         h3 Intereses 
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Donec vel egestas dolor, nec dignissim metus. Donec augue elit, rhoncus ac sodales id, porttitor vitae est. Donec laoreet rutrum libero sed pharetra. Duis a arcu convallis, gravida purus eget, mollis diam.
+        p= perfilUsuario.intereses
 
         br
 

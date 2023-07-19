@@ -27,6 +27,7 @@ router.post("/registrar", async (req, res) => {
         mail: req.body.Email,
         usuario: req.body.UserName,
         contrasenia: password
+        
       });
       console.log("el id es ........................"+ user.id);
       const nuevoPerfil = await perfil.create({
@@ -70,7 +71,7 @@ router.post("/login", async (req,res)=>{
        const validado = await bcrypt.compare(req.body.Password, user.contrasenia)
        if(validado){
         req.session.isAuthenticated=true;
-        req.session.autorId= user.id;
+        req.session.usuarioId= user.id;
         req.session.user = user.usuario
         console.log(req.session.user)
         res.redirect("/principal");

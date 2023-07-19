@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'fotoId'
       })
       
+      
     }
   }
   imagen.init({
