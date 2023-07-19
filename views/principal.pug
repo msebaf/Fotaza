@@ -2,54 +2,59 @@ extends layout
 
 block content
 
-    link(rel="stylesheet", href="/stylesheets/principal.css")
+  link(rel="stylesheet", href="/stylesheets/principal.css")
 
-    .cabecera 
-        input(type="search", name="buscarUsuarios", placeholder="Busca un Usuario", id="buscaUsuario") 
-        .filtros 
-            select(name="filtro1", class="filtro")
-                option(value="opcion1") opcion 1
-                option(value="opcion2") opcion 2 
-                option(value="opcion3") opcion 3 
-            select(name="filtro2", class="filtro")
-                option(value="opcion1") opcion 1
-                option(value="opcion2") opcion 2
-                option(value="opcion3") opcion 3
-            select(name="filtro3", class="filtro")
-                option(value="opcion1") opcion 1
-                option(value="opcion2") opcion 2
-                option(value="opcion3") opcion 3
-        a(href="/perfil/", id="linkPerfil") Mi Perfil
+  .cabecera 
+    input(type="search", name="buscarUsuarios", placeholder="Busca un Usuario", id="buscaUsuario") 
+    .filtros 
+      select(name="filtro1", class="filtro")
+        option(value="opcion1") opcion 1
+        option(value="opcion2") opcion 2 
+        option(value="opcion3") opcion 3 
+      select(name="filtro2", class="filtro")
+        option(value="opcion1") opcion 1
+        option(value="opcion2") opcion 2
+        option(value="opcion3") opcion 3
+      select(name="filtro3", class="filtro")
+        option(value="opcion1") opcion 1
+        option(value="opcion2") opcion 2
+        option(value="opcion3") opcion 3
+    a(href="/perfil/", id="linkPerfil") Mi Perfil
 
-    .container-fluid
+  .container-fluid
       
-      each imagen in imagenes
-        br
-        br
-        .row
-          
-          .col-3
-            | Contenido de la columna 1
-          .col-6(class= "foto-cont")
-            h3= imagen.titulo
-            .row(class="datos-Row")
-              .col-12
-                .datos
-                  p= "Autor: " + imagen.autor
-                  p= "imagen.ranking"
-            .row(class="datos-Row") 
-              .col-12
-                .datos
-                  p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
-                                        
-                  p= "Hora: " + new Date(imagen.fechaCreacion).toLocaleTimeString()
-                                
-            img(src="/"+imagen.path, alt="")
-            .comentarios 
+    each imagen in imagenes
+      br
+      br
+      .row
+        .col-3
+          | Contenido de la columna 1
+        .col-6(class="foto-cont")
+          h3= imagen.titulo
+          .row(class="datos-Row")
+            .col-12
+              .datos
+                p= "Autor: " + imagen.autor
+                p= "Ranking: "+imagen.ranking
+          .row(class="datos-Row") 
+            .col-12
+              .datos
+                p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
+                p= "Hora: " + new Date(imagen.fechaCreacion).toLocaleTimeString()
+          img(src="/" + imagen.path, alt="")
+          .comentarios
+            each comentario, index in imagen.comentarios.slice(0, 1)
               img(id="img-perfil-comentario", src="/images/perfil.jpg", alt="")
-              p el comentario
-          .col-3 
-            | Contenido de la columna 3
+              p= comentario.comentario
+          details
+            summary Mas Comentarios
+            each comentario, index in imagen.comentarios.slice(1, imagen.comentarios.length)
+              .comentarios
+                img(id="img-perfil-comentario", src="/images/perfil.jpg", alt="")
+                p= comentario.comentario
+        .col-3 
+          | Contenido de la columna 3
+
             
       script.
        /*

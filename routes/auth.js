@@ -1,7 +1,7 @@
 var express = require('express');
 const passport = require('passport');
 const bcrypt = require("bcrypt");
-const {usuario} = require("../models")
+const {usuario, perfil} = require("../models")
 var router = express.Router();
 
 
@@ -28,6 +28,15 @@ router.post("/registrar", async (req, res) => {
         usuario: req.body.UserName,
         contrasenia: password
       });
+      console.log("el id es ........................"+ user.id);
+      const nuevoPerfil = await perfil.create({
+        usuarioId: user.id,
+        nombreUsuario: req.body.UserName,
+        mail: req.body.Email
+
+      })
+
+  
   
       const response = {
         message: "Usuario Creado"

@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class comentario extends Model {
+  class perfil extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,38 +11,46 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      comentario.belongsTo(models.imagen,{
-        foreignKey: 'fotoId'
-      })
-
       
     }
   }
-  comentario.init({
+  perfil.init({
    
-    autorId:{
+    usuarioId:{
        type: DataTypes.INTEGER,
-       allowNull: false
+       allowNull: true
     },
-    fotoId :{
-      type : DataTypes.INTEGER,
-      allowNull: false
+    nombre :{
+      type : DataTypes.STRING,
+      allowNull: true
     },
-    comentario: {
+    apellido: {
       type:DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    fechaCreacion:{
+    mail:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    fechaNacimiento:{
       type:DataTypes.DATE,
-      allowNull: false
+      allowNull: true
+    },
+    intereses:{
+      type:DataTypes.STRING,
+      allowNull: true
+    },
+    nombreUsuario:{
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,
     timestmaps:false,
     createdAt:false,
     updatedAt:false,
-    modelName: 'comentario',
-    tableName:"comentarios"
+    modelName: 'perfil',
+    tableName:"perfiles"
   });
-  return comentario;
+  return perfil;
 };
