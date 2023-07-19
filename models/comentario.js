@@ -13,10 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       comentario.belongsTo(models.imagen,{
         foreignKey: 'fotoId'
-      }),
-      comentario.belongsTo(models.perfil,{
-        foreignKey: 'autorId'
-      })
+      });
+      comentario.hasOne(models.perfil, {
+        sourceKey: 'autorId',
+        foreignKey: 'usuarioId',
+        
+      });
 
 
       

@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      
       perfil.hasMany(models.imagen,{
         foreignKey: 'autorId'
-      })
+      });
+     
+      
       
     }
   }
