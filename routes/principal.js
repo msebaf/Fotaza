@@ -15,12 +15,13 @@ var router = express.Router();
 }); */
 router.get('/', async function(req, res, next) {
   console.log(req.session.user);
-
   const imagenes = await imagen.findAll({
     order: [['fechaCreacion', 'ASC']],
     include: [
       {
         model: comentario,
+        separate:true,
+        order: [['fechaCreacion', 'DESC']],
         include: [
           {
             model: perfil,

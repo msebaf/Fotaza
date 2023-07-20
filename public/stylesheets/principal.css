@@ -90,3 +90,21 @@ img{
 details{
     display: contents;
 }
+
+.agregar-comentario{
+    display: flex;
+    width: 80%;
+}
+    
+#n-comentario{
+ width: 85%;
+}
+
+#btn-subir{
+   
+    width: 15%;
+}
+
+#formulario-comentario{
+    display: contents;
+}

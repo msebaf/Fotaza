@@ -42,22 +42,33 @@ block content
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
                 p= "Hora: " + new Date(imagen.fechaCreacion).toLocaleTimeString()
           img(src="/" + imagen.path, alt="")
+          form(id="formulario-comentario" action="/comentarios/comentar" method="post")
+            .agregar-comentario 
+              input(type="number", name="nfoto", value=imagen.id, hidden="true")
+              textarea(id="n-comentario", name="comentario", class="form-control rounded", rows="2", placeholder="Escribe un comentario", maxlength="300")
+              button(id="btn-subir" type="submit") 
+                img(src="/icons/pngegg.png", alt="")
           .comentarios
             each comentario, index in imagen.comentarios.slice(0, 1)
               
               img(id="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
               p= comentario.comentario
-          details
-            summary Mas Comentarios
-            each comentario, index in imagen.comentarios.slice(1, imagen.comentarios.length)
-              .comentarios
-                img(id="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
-                p= comentario.comentario
+          if(imagen.comentarios.length > 1)
+            details
+              summary Mas Comentarios
+              each comentario, index in imagen.comentarios.slice(1, imagen.comentarios.length)
+                .comentarios
+                  img(id="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
+                  p= comentario.comentario
         .col-3 
           | Contenido de la columna 3
 
+
+      
+
             
       script.
+        
        /*
         const container = document.querySelector('.foto-cont');
         let page = 1;
