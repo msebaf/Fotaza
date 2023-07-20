@@ -108,3 +108,23 @@ details{
 #formulario-comentario{
     display: contents;
 }
+
+.estrellas{
+    display: flex;
+    
+}
+.img-estrella{
+    width: 25px;
+    height: 25px;
+    border: black solid;
+    border-radius: 25%;
+    padding: 2px;
+}
+.img-estrella:hover{
+    width: 27px;
+    height: 27px;
+    border: black solid;
+    border-radius: 25%;
+    padding: 2px;
+    /*background-color: goldenrod;    usa este color*/
+}

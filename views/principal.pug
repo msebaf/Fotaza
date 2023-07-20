@@ -26,7 +26,7 @@ block content
     each imagen in imagenes
       br
       br
-      .row
+      .row(id="foto" + imagen.id)
         .col-3
           | Contenido de la columna 1
         .col-6(class="foto-cont")
@@ -42,6 +42,17 @@ block content
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
                 p= "Hora: " + new Date(imagen.fechaCreacion).toLocaleTimeString()
           img(src="/" + imagen.path, alt="", id="foto" + imagen.id)
+          .estrellas 
+            .estrella1(class="estrellas")
+              img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            .estrella2(class="estrellas")
+              img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            .estrella3(class="estrellas")
+              img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            .estrella4(class="estrellas")
+              img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            .estrella5(class="estrellas")
+              img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
           form(id="formulario-comentario" action="/comentarios/comentar" method="post")
             .agregar-comentario 
               input(type="number", name="nfoto", value=imagen.id, hidden="true")
