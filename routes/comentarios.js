@@ -15,6 +15,7 @@ router.post("/comentar", async (req,res)=>{
       fechaCreacion: new Date()
     
   })
+  res.redirect("/principal");
  
 })
 

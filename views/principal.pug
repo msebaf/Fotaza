@@ -41,7 +41,7 @@ block content
               .datos
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
                 p= "Hora: " + new Date(imagen.fechaCreacion).toLocaleTimeString()
-          img(src="/" + imagen.path, alt="")
+          img(src="/" + imagen.path, alt="", id="foto" + imagen.id)
           form(id="formulario-comentario" action="/comentarios/comentar" method="post")
             .agregar-comentario 
               input(type="number", name="nfoto", value=imagen.id, hidden="true")
@@ -63,37 +63,5 @@ block content
         .col-3 
           | Contenido de la columna 3
 
-
-      
-
             
-      script.
-        
-       /*
-        const container = document.querySelector('.foto-cont');
-        let page = 1;
-
-        function fetchImages() {
-          fetch('/')
-            .then(response => response.json())
-            .then(imagenes => {
-              imagenes.forEach(imagen => {
-                const imgElement = document.createElement('img');
-                imgElement.src = imagen.path;
-                container.appendChild(imgElement);
-              });
-
-              page++;
-            })
-            .catch(error => console.error(error));
-        }
-
-        fetchImages();
-
-        window.addEventListener('scroll', () => {
-          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            fetchImages();
-          }
-        }); */
-        
-
+ 
