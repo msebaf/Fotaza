@@ -13,7 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var perfilRouter = require('./routes/perfil');
 var comentariosRouter = require('./routes/comentarios');
-
+var votosRouter = require('./routes/votos');
 var principalRouter = require('./routes/principal');
 var authRouter = require('./routes/auth').router;
 
@@ -73,6 +73,7 @@ app.use('/perfil', perfilRouter);
 app.use('/principal',/* EstaAutenticado,*/ principalRouter);
 app.use('/auth', authRouter);
 app.use('/comentarios', comentariosRouter);
+app.use('/votos', votosRouter);
 
 // Manejador de errores 404 y de errores generales
 app.use(function(req, res, next) {

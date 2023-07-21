@@ -36,7 +36,7 @@ block content
             .col-12
               .datos
                 p= "Autor: " + imagen.autor
-                p= "Ranking: " + imagen.ranking
+                p(id="ranking"+imagen.id)= "Ranking: " + imagen.ranking
           .row(class="datos-Row") 
             .col-12
               .datos
@@ -45,34 +45,46 @@ block content
           img(src="/" + imagen.path, alt="", id="foto" + imagen.id)
           .estrellasCont(id="estrellasCont" + imagen.id)
             if(imagen.votoUsuario == 1 || imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella1(class="estrellas estrellaSelected", onclick=`click1estrella(${imagen.id})`)
+              .estrella1(class="estrellas estrellaSelected", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             else 
-              .estrella1(class="estrellas", onclick=`click1estrella(${imagen.id})`)
+              .estrella1(class="estrellas", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             if (imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella2(class="estrellas estrellaSelected", onclick=`click2estrella(${imagen.id})`)
+              .estrella2(class="estrellas estrellaSelected", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            else if(imagen.votoUsuario == 0)
+              .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             else
-              .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id})`)
+              .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             if (imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella3(class="estrellas estrellaSelected", onclick=`click3estrella(${imagen.id})`)
+              .estrella3(class="estrellas estrellaSelected", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            else if(imagen.votoUsuario == 0)
+              .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             else
-              .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id})`)
+              .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             if (imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella4(class="estrellas estrellaSelected", onclick=`click4estrella(${imagen.id})`)
+              .estrella4(class="estrellas estrellaSelected", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            else if(imagen.votoUsuario == 0)
+              .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             else
-              .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id})`)
+              .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             if (imagen.votoUsuario == 5)
-              .estrella5(class="estrellas estrellaSelected", onclick=`click5estrella(${imagen.id})`)
+              .estrella5(class="estrellas estrellaSelected", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            else if(imagen.votoUsuario == 0)
+              .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
             else 
-              .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id})`)
+              .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
           form(id="formulario-comentario" action="/comentarios/comentar" method="post")
             .agregar-comentario 
