@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       imagen.hasMany(models.comentario, {
         foreignKey: 'fotoId'
       })
-      
+      imagen.hasMany(models.voto, {
+        foreignKey: 'fotoId' 
+      })
       
     }
   }

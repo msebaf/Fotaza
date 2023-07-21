@@ -3,7 +3,7 @@ const passport = require('passport');
 const bcrypt = require("bcrypt");
 const { sequelize } = require('../models');
 
-const {imagen, comentario, perfil} = require("../models");
+const {imagen, comentario, perfil, voto} = require("../models");
 
 var router = express.Router();
 
@@ -20,7 +20,7 @@ router.get('/', async function(req, res, next) {
     include: [
       {
         model: comentario,
-        separate:true,
+        separate: true,
         order: [['fechaCreacion', 'DESC']],
         include: [
           {
@@ -28,6 +28,10 @@ router.get('/', async function(req, res, next) {
             as: 'perfil'
           }
         ]
+      },
+      {
+        model: voto,
+       
       }
     ]
   });
@@ -37,13 +41,32 @@ router.get('/', async function(req, res, next) {
         const comentarios = imagen.comentarios;
         for (const comentario of comentarios) {
           const perfil = comentario.perfil;
-          // Accede a los atributos del perfil según tus necesidades
+      
           console.log("---------------------------------------------------------------------------------------------")
           console.log("---------------------------------------------------------------------------------------------")
-          console.log(perfil.nombreUsuario); // Ejemplo: Imprime el nombre del perfil
+          console.log(perfil.nombreUsuario); 
           
-          // ...
+          
         }
+        let ranking = 0;
+        let cantVotos = 0
+        let votoUsuario=0;
+        if(imagen.votos.length>0){
+        for(const voto of imagen.votos){
+          if(voto.usuarioId==req.session.usuarioId){
+            votoUsuario=voto.voto;
+            
+          }
+          ranking+=voto.voto;
+          cantVotos++;
+        }
+       
+        ranking/=imagen.votos.length;
+        
+      }
+      imagen.ranking=ranking;
+      imagen.cantVotos=cantVotos;
+      imagen.votoUsuario=votoUsuario;
       }
       console.log("Se vienen las imagnes")
       console.log("mira acaaaaaaaaaaa  "+ imagenes[0].comentario)

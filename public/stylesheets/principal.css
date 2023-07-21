@@ -109,22 +109,28 @@ details{
     display: contents;
 }
 
-.estrellas{
+.estrellasCont{
     display: flex;
     
 }
-.img-estrella{
+.estrellas{
+    display: flex;
     width: 25px;
     height: 25px;
     border: black solid;
     border-radius: 25%;
     padding: 2px;
 }
-.img-estrella:hover{
+.estrellas:hover{
     width: 27px;
     height: 27px;
     border: black solid;
     border-radius: 25%;
     padding: 2px;
     /*background-color: goldenrod;    usa este color*/
+}
+
+.estrellaSelected{
+    background-color: goldenrod;
+   
 }
