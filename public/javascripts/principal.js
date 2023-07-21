@@ -146,6 +146,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.remove("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -184,6 +200,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.remove("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -228,6 +260,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.remove("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -267,6 +315,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.remove("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -312,6 +376,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.remove("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -352,6 +432,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.remove("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -398,6 +494,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.add("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -439,6 +551,22 @@ function click1estrella(imagenId, controlVoto) {
               estrellas[i].classList.add("estrellaSelected");
             }
           }
+          fetch(`/votos/promedio/${imagenId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Promedio actualizado");
+            console.log("data:" + data);
+            document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+          })
+          .catch((error) => {
+            console.error("Error al obtener el promedio:", error);
+          });
+
         })
         .catch((error) => {
           console.error("Error al votar:", error);
@@ -447,11 +575,69 @@ function click1estrella(imagenId, controlVoto) {
   }
   
 
+  function comentar(fotoId) {
+    const formulario = document.getElementById("formulario-comentario"+fotoId);
+    formulario.addEventListener("submit", (event) => {
+      event.preventDefault();
+  
+      const formData = new URLSearchParams(new FormData(formulario));
+  
+      fetch("/comentarios/comentar", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("La respuesta no es válida");
+          }
+          console.log("Comentario enviado");
+          fetch(`/comentarios/listar/${fotoId}`).then((response) => {
+            if (!response.ok) {
+              throw new Error("La respuesta no es válida");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Los datos:" + data);
+            const comentarios = JSON.parse(data);
 
-  function calcularRanking(array){
-    let ranking=0;
-    for(let i=0;i<array.length;i++){
-        ranking+=array[i].voto;
-    }
-    return ranking/array.length||0;
+            console.log("Datos de comentarios:", comentarios)
+            document.getElementById("primerComentario" + fotoId).innerText = comentarios[0].comentario;
+           
+            document.getElementById("imgPrimerComentario" + fotoId).src = comentarios[0].perfil.avatar;
+            if(comentarios.length>1){
+            comentarios.shift();
+            let masComentarios = document.getElementById("masComentarios" + fotoId);
+            masComentarios.innerHTML = '';
+            let summary = document.createElement("summary");
+            summary.innerText = "Mas Comentarios";
+            masComentarios.appendChild(summary);
+            for(let i=0;i<comentarios.length;i++){
+              let div = document.createElement("div");
+              div.setAttribute("class", "comentarios");
+              masComentarios.appendChild(div);
+              let img = document.createElement("img");
+              img.setAttribute("class", "img-perfil-comentario");
+              img.setAttribute("src", comentarios[i].perfil.avatar);
+              div.appendChild(img);
+              let p = document.createElement("p");
+              p.innerText = comentarios[i].comentario;
+              div.appendChild(p);
+
+
+            }
+          }
+
+            
+          })
+        })
+        
+        .catch((error) => {
+          console.error("Error al enviar el comentario:", error);
+        });
+    });
   }
+  
+  
+
+  

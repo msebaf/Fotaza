@@ -59,7 +59,7 @@ router.get("/promedio/:fotoid", async (req,res)=>{
   if(votos.length>0){
     promedio= promedio/votos.length;
   }
-  res.status(200).json({ promedio: promedio });
+  res.status(200).json({ promedio: promedio.toFixed(2) });
  
 })
 module.exports = router;

@@ -54,7 +54,7 @@ router.get('/', async function(req, res, next) {
         if(imagen.votos.length>0){
         for(const voto of imagen.votos){
           if(voto.usuarioId==req.session.usuarioId){
-            votoUsuario=voto.voto;
+            votoUsuario=voto.voto.toFixed(2);
             
           }
           ranking+=voto.voto;

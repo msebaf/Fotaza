@@ -86,23 +86,23 @@ block content
             else 
               .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
                 img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-          form(id="formulario-comentario" action="/comentarios/comentar" method="post")
+          form(id="formulario-comentario"+imagen.id, action="", class="form-comentario")
             .agregar-comentario 
               input(type="number", name="nfoto", value=imagen.id, hidden="true")
-              textarea(id="n-comentario", name="comentario", class="form-control rounded", rows="2", placeholder="Escribe un comentario", maxlength="300")
-              button(id="btn-subir" type="submit") 
+              textarea(id="n-comentario"+imagen.id, name="comentario", class="form-control rounded", rows="2", placeholder="Escribe un comentario", maxlength="300")
+              button(id="btn-subir", onclick=`comentar(${imagen.id})`)
                 img(src="/icons/pngegg.png", alt="")
           .comentarios
             each comentario, index in imagen.comentarios.slice(0, 1)
               
-              img(id="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
-              p= comentario.comentario
+              img(id="imgPrimerComentario"+imagen.id, class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
+              p(id="primerComentario"+imagen.id)= comentario.comentario
           if(imagen.comentarios.length > 1)
-            details
+            details(id="masComentarios"+imagen.id)
               summary Mas Comentarios
               each comentario, index in imagen.comentarios.slice(1, imagen.comentarios.length)
                 .comentarios
-                  img(id="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
+                  img(class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
                   p= comentario.comentario
         .col-3 
           | Contenido de la columna 3
