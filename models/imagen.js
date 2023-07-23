@@ -17,6 +17,19 @@ module.exports = (sequelize, DataTypes) => {
       imagen.hasMany(models.voto, {
         foreignKey: 'fotoId' 
       })
+      imagen.hasOne(models.privacidad, {
+        sourceKey: 'privacidadId',
+        foreignKey: 'id'
+        
+      })
+      imagen.hasOne(models.licencia, {
+        sourceKey: 'licenciaId',
+        foreignKey: 'id'
+      })
+      imagen.hasOne(models.categoria, {
+        sourceKey: 'categoriaId',
+        foreignKey: 'id'
+      })
       
     }
   }
@@ -30,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       allowNull: false
     },
-    categoria: {
+    categoriaId: {
       type:DataTypes.INTEGER,
       allowNull: false
     },
@@ -46,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull: false
     },
-    licencia: {
+    licenciaId: {
       type:DataTypes.INTEGER,
       allowNull: false
     },
@@ -68,6 +81,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     autor:{
       type:DataTypes.STRING,
+      allowNull: false
+    },
+    privacidadId: {
+      type:DataTypes.INTEGER,
       allowNull: false
     }
 

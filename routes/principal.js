@@ -3,7 +3,7 @@ const passport = require('passport');
 const bcrypt = require("bcrypt");
 const { sequelize } = require('../models');
 
-const {imagen, comentario, perfil, voto} = require("../models");
+const {imagen, comentario, perfil, voto, privacidad, licencia, categoria} = require("../models");
 
 var router = express.Router();
 
@@ -32,6 +32,15 @@ router.get('/', async function(req, res, next) {
       {
         model: voto,
        
+      },
+      {
+        model: privacidad,
+      },
+      {
+        model: licencia,
+      },
+      {
+        model: categoria,
       }
     ]
   });
@@ -79,5 +88,11 @@ router.get('/', async function(req, res, next) {
     }
   
 });
+
+router.post("/publicar", async (req, res) => {
+
+  
+
+})
 
 module.exports = router;

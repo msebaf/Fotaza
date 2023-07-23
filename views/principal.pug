@@ -22,7 +22,46 @@ block content
         option(value="opcion3") opcion 3
     a(href="/perfil/", id="linkPerfil") Mi Perfil
 
+
   .container-fluid
+      
+    .subirFotoContainer 
+      form(action="/publicar", method="post", enctype="multipart/form-data", id="subirFoto")
+        input(type="file", name="foto")
+
+        label(for="titulo") Titulo
+        input(type="text", name="titulo")
+
+        label(for="categoria") Categoria
+        select(name="categoria")
+          option(value="1") Naturaleza y Paisajes
+          option(value="2") Viajes y Turismo
+          option(value="3") Estilo de Vida y Cultura
+          option(value="4") Arte y Creatividad
+          option(value="5") Retratos y Personas
+          option(value="6") Aventuras y Deportes 
+        label(for="etiquetas") Etiquetas 
+        .etiquetas(id="etiquetas") 
+          input(type="text", name="etiqueta1", placeholder="Etiqueta 1")
+          input(type="text", name="etiqueta2", placeholder="Etiqueta 2")
+          input(type="text", name="etiqueta3", placeholder="Etiqueta 3")
+
+        label(for="privacidad") Privacidad 
+        select(name="privacidad")
+          option(value="1") Publico
+          option(value="2") Privado 
+
+        label(for="licencia") Licencia
+        select(name="licencia")
+          option(value="1") Copyright (derechos de autor)
+          option(value="2") Copyleft (foto y derivados siempre publicos)
+          option(value="3") Dominio Publico
+
+        input(type="text", name="autor", value= "pasar desde back", hidden)
+        input(type="text", name="autorId", value= "pasar desde back", hidden)
+
+        input(type="submit", value="Subir")
+    
       
     each imagen in imagenes
       br
