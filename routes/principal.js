@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const { sequelize } = require('../models');
 
 const {imagen, comentario, perfil, voto, privacidad, licencia, categoria} = require("../models");
+const { path } = require('../app');
 
 var router = express.Router();
 
@@ -16,7 +17,7 @@ var router = express.Router();
 router.get('/', async function(req, res, next) {
   console.log(req.session.user);
   const imagenes = await imagen.findAll({
-    order: [['fechaCreacion', 'ASC']],
+    order: [['fechaCreacion', 'DESC']],
     include: [
       {
         model: comentario,
@@ -90,9 +91,53 @@ router.get('/', async function(req, res, next) {
 });
 
 router.post("/publicar", async (req, res) => {
+  try {
+    const { titulo, categoria, etiqueta1, etiqueta2, etiqueta3, privacidad, licencia } = req.body;
+    const autor = req.session.user;
+    const autorId = req.session.usuarioId;
+    const { foto } = req.files;
+    const formato = foto.mimetype;
+    console.log("Nombre de la foto: " + foto.name);
+    const fecha = new Date();
+    const size = foto.size; // por si quiero revisar un máximo tamaño
+    const nombreImagen = req.session.usuarioId + fecha.getDate() + fecha.getMonth() + fecha.getFullYear() + fecha.getHours() + fecha.getMinutes() + fecha.getSeconds() + foto.name;
+    console.log("nombre de la imagen " + nombreImagen);
 
-  
+    foto.mv("public/images/" + nombreImagen); // Move the uploaded image to the destination directory
+    const rutaImagen = "images/" + nombreImagen;
+    console.log("Los datos")
+    console.log(titulo)
+    console.log(categoria)
+    console.log(etiqueta1)
+    console.log(etiqueta2)
+    console.log(etiqueta3)
+    console.log(privacidad)
+    console.log(licencia)
+    console.log(autor)
+    console.log(autorId)
 
-})
+    const newImagen = await imagen.create({
+      autorId: autorId,
+      autor: autor,
+      fechaCreacion: fecha,
+      titulo: titulo,
+      categoriaId: categoria,
+      etiqueta1: etiqueta1 || null,
+      etiqueta2: etiqueta2 || null,
+      etiqueta3: etiqueta3 || null,
+      privacidadId: privacidad,
+      licenciaId: licencia,
+      formato: formato,
+      resolucion: null,
+      ruta: rutaImagen,
+    });
+
+    res.send('<script>alert("Imagen cargada"); window.location.href = "/principal"; </script>');
+    // res.redirect("/principal"); // This line is not needed since you're already sending a response above.
+  } catch (error) {
+    console.error(error);
+    res.send('<script>alert("Error al cargar la imagen"); window.location.href = "/principal"; </script>');
+  }
+});
 
 module.exports = router;

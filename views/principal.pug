@@ -26,7 +26,7 @@ block content
   .container-fluid
       
     .subirFotoContainer 
-      form(action="/publicar", method="post", enctype="multipart/form-data", id="subirFoto")
+      form(action="principal/publicar", method="post", enctype="multipart/form-data", id="subirFoto")
         input(type="file", name="foto")
 
         label(for="titulo") Titulo
@@ -57,8 +57,7 @@ block content
           option(value="2") Copyleft (foto y derivados siempre publicos)
           option(value="3") Dominio Publico
 
-        input(type="text", name="autor", value= "pasar desde back", hidden)
-        input(type="text", name="autorId", value= "pasar desde back", hidden)
+       
 
         input(type="submit", value="Subir")
     
@@ -81,7 +80,7 @@ block content
               .datos
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
                 p= "votos: " + imagen.cantVotos
-          img(src="/" + imagen.path, alt="", id="foto" + imagen.id)
+          img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id)
           .estrellasCont(id="estrellasCont" + imagen.id)
             if(imagen.votoUsuario == 1 || imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
               .estrella1(class="estrellas estrellaSelected", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)

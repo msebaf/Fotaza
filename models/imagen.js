@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     resolucion: {
       type:DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     licenciaId: {
       type:DataTypes.INTEGER,
@@ -75,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull: true
     },
-    path: {
+    ruta: {
       type:DataTypes.STRING,
       allowNull: false
     },
