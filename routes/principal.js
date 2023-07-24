@@ -100,7 +100,14 @@ router.post("/publicar", async (req, res) => {
     console.log("Nombre de la foto: " + foto.name);
     const fecha = new Date();
     const size = foto.size; // por si quiero revisar un máximo tamaño
-    const nombreImagen = req.session.usuarioId + fecha.getDate() + fecha.getMonth() + fecha.getFullYear() + fecha.getHours() + fecha.getMinutes() + fecha.getSeconds() + foto.name;
+    console.log(fecha.getDate());
+    console.log(fecha.getMonth());
+    console.log(fecha.getFullYear());
+    console.log(fecha.getHours());
+    console.log(fecha.getMinutes());
+    console.log(fecha.getSeconds());
+    
+    const nombreImagen = ""+autorId + fecha.getDate() + fecha.getMonth() + fecha.getFullYear() + fecha.getHours() + fecha.getMinutes() + fecha.getSeconds() + foto.name;
     console.log("nombre de la imagen " + nombreImagen);
 
     foto.mv("public/images/" + nombreImagen); // Move the uploaded image to the destination directory
