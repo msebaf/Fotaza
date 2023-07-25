@@ -85,6 +85,18 @@ router.post("/login", async (req,res)=>{
     }
 })
 
+router.post("/loginInvitado", async (req,res)=>{
+   
+  
+      req.session.isAuthenticated=false;
+      req.session.user = "invitado"
+      
+      res.redirect("/principal");
+     
+     
+})
+
+
 router.get("/logout",(req,res)=>{
     req.session.destroy();
     

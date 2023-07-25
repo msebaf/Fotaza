@@ -15,6 +15,7 @@ var usersRouter = require('./routes/users');
 var perfilRouter = require('./routes/perfil');
 var comentariosRouter = require('./routes/comentarios');
 var votosRouter = require('./routes/votos');
+var imagenRouter = require('./routes/imagen');
 var principalRouter = require('./routes/principal');
 var authRouter = require('./routes/auth').router;
 
@@ -72,10 +73,12 @@ passport.deserializeUser(function(user, done){
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/perfil', perfilRouter);
-app.use('/principal',/* EstaAutenticado,*/ principalRouter);
+app.use('/principal', principalRouter);
 app.use('/auth', authRouter);
-app.use('/comentarios', comentariosRouter);
-app.use('/votos', votosRouter);
+app.use('/imagen',EstaAutenticado, imagenRouter);
+app.use('/comentarios',EstaAutenticado, comentariosRouter);
+app.use('/votos',EstaAutenticado, votosRouter);
+
 
 // Manejador de errores 404 y de errores generales
 app.use(function(req, res, next) {

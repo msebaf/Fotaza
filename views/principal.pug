@@ -6,60 +6,64 @@ block content
   script(src="/javascripts/principal.js", defer) 
 
   .cabecera 
-    input(type="search", name="buscarUsuarios", placeholder="Busca un Usuario", id="buscaUsuario") 
-    .filtros 
+    .div-cabecera(id="buscador-perfil")
+      input(type="search", name="buscarUsuarios", placeholder="Busca un Usuario", id="buscaUsuario")
+      
+    .div-cabecera(id="busca-filtros") 
       select(name="filtro1", class="filtro")
-        option(value="opcion1") opcion 1
-        option(value="opcion2") opcion 2 
-        option(value="opcion3") opcion 3 
-      select(name="filtro2", class="filtro")
-        option(value="opcion1") opcion 1
-        option(value="opcion2") opcion 2
-        option(value="opcion3") opcion 3
-      select(name="filtro3", class="filtro")
-        option(value="opcion1") opcion 1
-        option(value="opcion2") opcion 2
-        option(value="opcion3") opcion 3
-    a(href="/perfil/", id="linkPerfil") Mi Perfil
+        option(value="todos") ---Elige una categoria---
+        option(value="Naturaleza y Paisajes") Naturaleza y Paisajes
+        option(value="Viajes y Turismo") Viajes y Turismo
+        option(value="Estilo de Vida y Cultura") Estilo de Vida y Cultura
+        option(value="Arte y Creatividad") Arte y Creatividad
+        option(value="Retratos y Personas") Retratos y Personas
+        option(value="Aventuras y Deportes") Aventuras y Deportes
+      input(type="text", name="", placeholder="Busca una etiquetas") 
+      
+
+    .div-cabecera
+      a(href="/perfil/", id="linkPerfil") Mi Perfil
 
 
   .container-fluid
-      
-    .subirFotoContainer 
-      form(action="principal/publicar", method="post", enctype="multipart/form-data", id="subirFoto")
-        input(type="file", name="foto")
+    if(autenticado)  
+      .subirFotoContainer
+        .nfoto
+          img(src="/icons/subiObra.png", alt="", id="fotoAsubir") 
+        form(action="imagen/publicar", method="post", enctype="multipart/form-data" id="subirFoto")
+          input(type="file", name="foto", id="foto")
 
-        label(for="titulo") Titulo
-        input(type="text", name="titulo")
+          label(for="titulo") Titulo
+          input(type="text", name="titulo")
 
-        label(for="categoria") Categoria
-        select(name="categoria")
-          option(value="1") Naturaleza y Paisajes
-          option(value="2") Viajes y Turismo
-          option(value="3") Estilo de Vida y Cultura
-          option(value="4") Arte y Creatividad
-          option(value="5") Retratos y Personas
-          option(value="6") Aventuras y Deportes 
-        label(for="etiquetas") Etiquetas 
-        .etiquetas(id="etiquetas") 
-          input(type="text", name="etiqueta1", placeholder="Etiqueta 1")
-          input(type="text", name="etiqueta2", placeholder="Etiqueta 2")
-          input(type="text", name="etiqueta3", placeholder="Etiqueta 3")
+          label(for="categoria") Categoria
+          select(name="categoria")
+            option(value="1") Naturaleza y Paisajes
+            option(value="2") Viajes y Turismo
+            option(value="3") Estilo de Vida y Cultura
+            option(value="4") Arte y Creatividad
+            option(value="5") Retratos y Personas
+            option(value="6") Aventuras y Deportes 
+          label(for="etiquetas") Etiquetas 
+          .etiquetas(id="etiquetas") 
+            input(type="text", name="etiqueta1", placeholder="Etiqueta 1")
+            input(type="text", name="etiqueta2", placeholder="Etiqueta 2")
+            input(type="text", name="etiqueta3", placeholder="Etiqueta 3")
 
-        label(for="privacidad") Privacidad 
-        select(name="privacidad")
-          option(value="1") Publico
-          option(value="2") Privado 
+          label(for="privacidad") Privacidad 
+          select(name="privacidad")
+            option(value="1") Publico
+            option(value="2") Privado 
 
-        label(for="licencia") Licencia
-        select(name="licencia")
-          option(value="1") Copyright (derechos de autor)
-          option(value="2") Copyleft (foto y derivados siempre publicos)
-          option(value="3") Dominio Publico
+          label(for="licencia") Licencia
+          select(name="licencia")
+            option(value="1") Copyright (derechos de autor)
+            option(value="2") Copyleft (foto y derivados siempre publicos)
+            option(value="3") Dominio Publico
 
-       
+        
 
-        input(type="submit", value="Subir")
+          input(type="submit", value="Subir")
     
       
     each imagen in imagenes
@@ -79,57 +83,58 @@ block content
             .col-12
               .datos
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
-                p= "votos: " + imagen.cantVotos
+                p(id="cantVotos"+imagen.id)= "votos: " + imagen.cantVotos
           img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id)
-          .estrellasCont(id="estrellasCont" + imagen.id)
-            if(imagen.votoUsuario == 1 || imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella1(class="estrellas estrellaSelected", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else 
-              .estrella1(class="estrellas", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            if (imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella2(class="estrellas estrellaSelected", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else if(imagen.votoUsuario == 0)
-              .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else
-              .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            if (imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella3(class="estrellas estrellaSelected", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else if(imagen.votoUsuario == 0)
-              .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else
-              .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            if (imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
-              .estrella4(class="estrellas estrellaSelected", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else if(imagen.votoUsuario == 0)
-              .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else
-              .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            if (imagen.votoUsuario == 5)
-              .estrella5(class="estrellas estrellaSelected", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else if(imagen.votoUsuario == 0)
-              .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-            else 
-              .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
-                img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
-          form(id="formulario-comentario"+imagen.id, action="", class="form-comentario")
-            .agregar-comentario 
-              input(type="number", name="nfoto", value=imagen.id, hidden="true")
-              textarea(id="n-comentario"+imagen.id, name="comentario", class="form-control rounded", rows="2", placeholder="Escribe un comentario", maxlength="300")
-              button(id="btn-subir", onclick=`comentar(${imagen.id})`)
-                img(src="/icons/pngegg.png", alt="")
+          if(autenticado)
+            .estrellasCont(id="estrellasCont" + imagen.id)
+              if(imagen.votoUsuario == 1 || imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                .estrella1(class="estrellas estrellaSelected", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else 
+                .estrella1(class="estrellas", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              if (imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                .estrella2(class="estrellas estrellaSelected", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else if(imagen.votoUsuario == 0)
+                .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else
+                .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              if (imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                .estrella3(class="estrellas estrellaSelected", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else if(imagen.votoUsuario == 0)
+                .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else
+                .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              if (imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                .estrella4(class="estrellas estrellaSelected", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else if(imagen.votoUsuario == 0)
+                .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else
+                .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              if (imagen.votoUsuario == 5)
+                .estrella5(class="estrellas estrellaSelected", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else if(imagen.votoUsuario == 0)
+                .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+              else 
+                .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                  img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+            form(id="formulario-comentario"+imagen.id, action="", class="form-comentario")
+              .agregar-comentario 
+                input(type="number", name="nfoto", value=imagen.id, hidden="true")
+                textarea(id="n-comentario"+imagen.id, name="comentario", class="form-control rounded", rows="2", placeholder="Escribe un comentario", maxlength="300")
+                button(id="btn-subir", onclick=`comentar(${imagen.id})`)
+                  img(src="/icons/pngegg.png", alt="")
           .comentarios
             each comentario, index in imagen.comentarios.slice(0, 1)
               

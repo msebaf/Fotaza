@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { sequelize } = require('../models');
 
 const {imagen, comentario, perfil, voto, privacidad, licencia, categoria} = require("../models");
-const { path } = require('../app');
+
 
 var router = express.Router();
 
@@ -16,7 +16,11 @@ var router = express.Router();
 }); */
 router.get('/', async function(req, res, next) {
   console.log(req.session.user);
-  const imagenes = await imagen.findAll({
+  let imagenes;
+  let autenticado;
+  if(req.session.isAuthenticated){
+    autenticado=true;
+   imagenes = await imagen.findAll({
     order: [['fechaCreacion', 'DESC']],
     include: [
       {
@@ -45,6 +49,41 @@ router.get('/', async function(req, res, next) {
       }
     ]
   });
+}else{
+  autenticado=false;
+  imagenes = await imagen.findAll({
+    where: {
+      licenciaId: 3
+    },
+    order: [['fechaCreacion', 'DESC']],
+    include: [
+      {
+        model: comentario,
+        separate: true,
+        order: [['fechaCreacion', 'DESC']],
+        include: [
+          {
+            model: perfil,
+            as: 'perfil'
+          }
+        ]
+      },
+      {
+        model: voto,
+         
+      },
+      {
+        model: privacidad,
+      },
+      {
+        model: licencia,
+      },
+      {
+        model: categoria,
+      }
+    ]
+  });
+}
     if (imagenes) {
 
       for (const imagen of imagenes) {
@@ -81,7 +120,7 @@ router.get('/', async function(req, res, next) {
       console.log("Se vienen las imagnes")
       console.log("mira acaaaaaaaaaaa  "+ imagenes[0].comentario)
       
-      res.render('principal', { title: 'Express', imagenes }); 
+      res.render('principal', { autenticado, imagenes }); 
       
     } else {
       console.error(err);
@@ -90,7 +129,7 @@ router.get('/', async function(req, res, next) {
   
 });
 
-router.post("/publicar", async (req, res) => {
+/*router.post("/publicar", async (req, res) => {
   try {
     const { titulo, categoria, etiqueta1, etiqueta2, etiqueta3, privacidad, licencia } = req.body;
     const autor = req.session.user;
@@ -106,7 +145,7 @@ router.post("/publicar", async (req, res) => {
     console.log(fecha.getHours());
     console.log(fecha.getMinutes());
     console.log(fecha.getSeconds());
-    
+
     const nombreImagen = ""+autorId + fecha.getDate() + fecha.getMonth() + fecha.getFullYear() + fecha.getHours() + fecha.getMinutes() + fecha.getSeconds() + foto.name;
     console.log("nombre de la imagen " + nombreImagen);
 
@@ -145,6 +184,6 @@ router.post("/publicar", async (req, res) => {
     console.error(error);
     res.send('<script>alert("Error al cargar la imagen"); window.location.href = "/principal"; </script>');
   }
-});
+});*/
 
 module.exports = router;

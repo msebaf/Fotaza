@@ -38,6 +38,9 @@ block content
         img(src="icons/facebook.png", alt="", class="socialLoggin")
         img(src="icons/google.png", alt="", class="socialLoggin")
         img(src="icons/github.png", alt="", class="socialLoggin")
+      .boton-invitado
+        form(action="/auth/loginInvitado", method="post")
+          input(type="submit", value="Entrar Como Invitado", class="button", id="btnInvitado")  
 
   script(src="https://code.jquery.com/jquery-3.6.0.min.js")
   script.

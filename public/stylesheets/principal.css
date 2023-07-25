@@ -17,6 +17,18 @@ body{
 
 }
 
+
+.div-cabecera{
+    width: 20%;
+}
+
+#busca-filtros{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 #buscaUsuario{
     border-radius: 25px;
     height: 60%;
@@ -143,4 +155,22 @@ details{
 
 
     width: 100%;
+}
+
+#fotoAsubir{
+    width: 70%;
+    margin-bottom: 15px;
+}
+
+.nfoto{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+
+}
+
+.subirFotoContainer{
+    border: thistle solid;
+    margin-top: 30px;
+    padding-bottom: 5px;
 }

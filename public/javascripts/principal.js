@@ -1,10 +1,15 @@
 
+var arrayClickeados = [];
 
 function click1estrella(imagenId, controlVoto) {
     console.log(imagenId)
     console.log(controlVoto)
     console.log(controlVoto==0)
-    if(controlVoto==0){
+    if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
+        let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
+        arrayClickeados.push(imagenId);
+        cvotos =  parseInt(document.getElementById("cantVotos" + imagenId).innerHTML) +1;
+
     fetch(`/votos/votar/${imagenId}/1`, {
       method: "POST",
     })
@@ -13,7 +18,14 @@ function click1estrella(imagenId, controlVoto) {
           throw new Error("La respuesta no es válida");
         }
         console.log("Votación exitosa");
+        
+        
+        controlVoto = 1;
+        
         const estrellasCont = document.getElementById("estrellasCont" + imagenId);
+        
+        estrellasCont.setAttribute('data-clickeado', 'true');
+
         const estrellas = estrellasCont.children;
       
         for (let i = 0; i < estrellas.length; i++) {
@@ -45,6 +57,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -98,6 +111,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -115,7 +129,10 @@ function click1estrella(imagenId, controlVoto) {
     console.log(controlVoto);
     console.log(controlVoto === 0);
   
-    if (controlVoto === 0) {
+    if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
+      let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
+      arrayClickeados.push(imagenId);
+      cvotos =  parseInt(document.getElementById("cantVotos" + imagenId).innerHTML) +1;
       fetch(`/votos/votar/${imagenId}/2`, {
         method: "POST",
       })
@@ -124,7 +141,10 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
           console.log("Votación exitosa");
+          controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
+          estrellasCont.setAttribute('data-clickeado', 'true');
+          
           const estrellas = estrellasCont.children;
   
           for (let i = 0; i < estrellas.length; i++) {
@@ -157,6 +177,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -169,6 +190,7 @@ function click1estrella(imagenId, controlVoto) {
     } else {
       console.log(controlVoto === 0);
       console.log(controlVoto);
+
       fetch(`/votos/update/${imagenId}/2`, {
         method: "PUT",
       })
@@ -178,6 +200,7 @@ function click1estrella(imagenId, controlVoto) {
           }
   
           console.log("Votación exitosa");
+          controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
   
@@ -211,6 +234,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -228,7 +252,10 @@ function click1estrella(imagenId, controlVoto) {
     console.log(controlVoto);
     console.log(controlVoto === 0);
   
-    if (controlVoto === 0) {
+    if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
+      let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
+      arrayClickeados.push(imagenId);
+      cvotos =  parseInt(document.getElementById("cantVotos" + imagenId).innerHTML) +1;
       fetch(`/votos/votar/${imagenId}/3`, {
         method: "POST",
       })
@@ -237,6 +264,7 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
           console.log("Votación exitosa");
+          controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
   
@@ -271,6 +299,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -292,6 +321,7 @@ function click1estrella(imagenId, controlVoto) {
           }
   
           console.log("Votación exitosa");
+          controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
   
@@ -326,6 +356,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -343,7 +374,10 @@ function click1estrella(imagenId, controlVoto) {
     console.log(controlVoto);
     console.log(controlVoto === 0);
   
-    if (controlVoto === 0) {
+    if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
+      let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
+      arrayClickeados.push(imagenId);
+      cvotos =  parseInt(document.getElementById("cantVotos" + imagenId).innerHTML) +1;
       fetch(`/votos/votar/${imagenId}/4`, {
         method: "POST",
       })
@@ -352,6 +386,7 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
           console.log("Votación exitosa");
+          controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
   
@@ -387,6 +422,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -408,6 +444,7 @@ function click1estrella(imagenId, controlVoto) {
           }
   
           console.log("Votación exitosa");
+          controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
   
@@ -443,6 +480,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -460,7 +498,10 @@ function click1estrella(imagenId, controlVoto) {
     console.log(controlVoto);
     console.log(controlVoto === 0);
   
-    if (controlVoto === 0) {
+    if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
+      let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
+      arrayClickeados.push(imagenId);
+      cvotos =  parseInt(document.getElementById("cantVotos" + imagenId).innerHTML) +1;
       fetch(`/votos/votar/${imagenId}/5`, {
         method: "POST",
       })
@@ -469,6 +510,7 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
           console.log("Votación exitosa");
+          controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
   
@@ -505,6 +547,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -562,6 +605,7 @@ function click1estrella(imagenId, controlVoto) {
             console.log("Promedio actualizado");
             console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
+            document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
           .catch((error) => {
             console.error("Error al obtener el promedio:", error);
@@ -640,4 +684,60 @@ function click1estrella(imagenId, controlVoto) {
   
   
 
+
+
   
+//mostrar vista previa de la foto
+  function mostrarVistaPrevia() {
+    console.log("Cambio")
+    const archivo = document.getElementById('foto').files[0];
+    if (archivo) {
+      const lector = new FileReader();
+
+      lector.onload = function(e) {
+        document.getElementById('fotoAsubir').setAttribute('src', e.target.result);
+      }
+
+      lector.readAsDataURL(archivo);
+    }
+  }
+
+  if(document.getElementById("foto")){
+  document.getElementById('foto').addEventListener('change', mostrarVistaPrevia);
+}
+
+//buscar perfiles
+
+const inputBusqueda = document.getElementById('buscaUsuario');
+const listaResultados = document.getElementById('listaResultados');
+
+inputBusqueda.addEventListener('keyup', buscarPerfil)
+
+function buscarPerfil(){
+  const query = inputBusqueda.value;
+    console.log(query);
+    if (query.length > 0) {
+      // Enviar una solicitud AJAX al servidor con la consulta de búsqueda
+      fetch(`/perfil/buscar/:${query}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log("---------data-----------")
+          console.log(data);
+          // Limpiar los resultados anteriores
+          listaResultados.innerHTML = '';
+
+          // Mostrar los resultados de la búsqueda
+          data.forEach(perfil => {
+            const itemLista = document.createElement('li');
+            itemLista.textContent = perfil.nombreUsuario; // Reemplaza "nombre" por el campo apropiado del objeto "usuario"
+            listaResultados.appendChild(itemLista);
+          });
+        })
+        .catch(error => {
+          console.error('Error en la búsqueda:', error);
+        });
+    } else {
+      // Limpiar la lista de resultados si no hay una consulta
+      listaResultados.innerHTML = '';
+    }
+  };
