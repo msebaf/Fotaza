@@ -709,9 +709,9 @@ function click1estrella(imagenId, controlVoto) {
 //buscar perfiles
 
 const inputBusqueda = document.getElementById('buscaUsuario');
-const listaResultados = document.getElementById('listaResultados');
+const listaResultados = document.getElementById('paraBarra');
 
-inputBusqueda.addEventListener('keyup', buscarPerfil)
+inputBusqueda.addEventListener('input', buscarPerfil)
 
 function buscarPerfil(){
   const query = inputBusqueda.value;
@@ -728,9 +728,14 @@ function buscarPerfil(){
 
           // Mostrar los resultados de la búsqueda
           data.forEach(perfil => {
-            const itemLista = document.createElement('li');
-            itemLista.textContent = perfil.nombreUsuario; // Reemplaza "nombre" por el campo apropiado del objeto "usuario"
+            const itemLista = document.createElement('div');
+            itemLista.setAttribute('class', 'item-lista');
             listaResultados.appendChild(itemLista);
+            const enlace = document.createElement('a');
+            enlace.setAttribute('href', `/perfil/${perfil.id}`);
+            enlace.textContent = perfil.nombreUsuario; // Aquí estableces el texto del enlace
+            itemLista.appendChild(enlace);
+
           });
         })
         .catch(error => {

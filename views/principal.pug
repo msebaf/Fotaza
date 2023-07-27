@@ -24,6 +24,18 @@ block content
     .div-cabecera
       a(href="/perfil/", id="linkPerfil") Mi Perfil
 
+  .listaPerfiles 
+    .div-lista(id="div-lista")
+      .paraBarra(id="paraBarra")
+        
+      
+      
+    .div-nada
+      
+
+    .div-mensajes
+      
+
 
   .container-fluid
     if(autenticado)  
@@ -74,7 +86,7 @@ block content
         input(type="text", id="textEtiqueta2", value=imagen.etiqueta2, hidden)
         input(type="text", id="textEtiqueta3", value=imagen.etiqueta3, hidden)
         .col-3
-          | Contenido de la columna 1
+          
         .col-6(class="foto-cont")
           h3= imagen.titulo
           .row(class="datos-Row")
@@ -167,7 +179,7 @@ block content
                   img(class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
                   p= comentario.comentario
         .col-3 
-          | Contenido de la columna 3
+          
 
             
  

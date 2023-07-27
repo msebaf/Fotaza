@@ -11,18 +11,50 @@ router.get('/', async function(req, res, next) {
   console.log(req.session.autorId)
 
   const perfilUsuario = await perfil.findOne({where: {usuarioId: req.session.usuarioId}})
-
   const imagenes =  await  imagen.findAll({where: { autorId: req.session.usuarioId },
     order: [['fechaCreacion', 'DESC']]})
     if (imagenes) {
       console.log("Se vienen las imagnes")
       console.log(imagenes)
-      res.render('perfil', { title: 'Express', imagenes, perfilUsuario });
+      res.render('perfil', { imagenes, perfilUsuario });
       
     } else {
       console.error(err);
       res.status(500).json({ error: 'Error al obtener las imágenes' });
     }
+  
+  
+});
+
+router.get('/:id', async function(req, res, next) {
+  console.log(req.params.id)
+
+  const perfilUsuario = await perfil.findOne({where: {id: req.params.id}})
+  if(req.session.isAuthenticated){
+  const imagenes =  await  imagen.findAll({where: { autorId: perfilUsuario.usuarioId },
+    order: [['fechaCreacion', 'DESC']]})
+    if (imagenes) {
+      console.log("Se vienen las imagnes")
+      console.log(imagenes)
+      res.render('perfil', { imagenes, perfilUsuario });
+      
+    } else {
+      console.error(err);
+      res.status(500).json({ error: 'Error al obtener las imágenes' });
+    }
+  }else{
+    const imagenes =  await  imagen.findAll({where: { autorId: perfilUsuario.usuarioId, licenciaId: 3, },
+      order: [['fechaCreacion', 'DESC']]})
+      if (imagenes) {
+        console.log("Se vienen las imagnes")
+        console.log(imagenes)
+        res.render('perfil', { imagenes, perfilUsuario });
+        
+      } else {
+        console.error(err);
+        res.status(500).json({ error: 'Error al obtener las imágenes' });
+      }
+  }
   
 });
 
