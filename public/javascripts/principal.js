@@ -753,77 +753,76 @@ let filtroEtiquetas =  document.getElementById("filtroEtiquetas");
 filtroEtiquetas.addEventListener("input", filtrarFotos)
 
 function filtrarFotos(){
-      filtrarPorCategoria();
+      let categoriaOk=true;
+      let etiquetaOk=true;
+      let fotos = document.querySelectorAll('[id^="foto-main-container"]');
+      fotos.forEach(foto => {
+        categoriaOk=filtrarPorCategoria(foto);
+        console.log(categoriaOk)
+        etiquetaOk=filtrarPorEtiqueta(foto);
+        console.log(etiquetaOk)
+        if(!categoriaOk || !etiquetaOk){
+          foto.style.display = "none"
+          console.log("ocultar")
+        }else{
+          foto.style.display = "flex"
+          console.log("mostrar")
+        }
+      })
   
 }
 
 
 
 
-function filtrarPorCategoria(){
+function filtrarPorCategoria(foto){
 
   console.log("funcion activada")
   let filtroCategoria =  document.getElementById("filtroCategoriaSelect");
-   let filtroEtiquetas =  document.getElementById("filtroEtiquetas");
+   
    
   if(filtroCategoria.value != "Todos"){
     
-    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
-    fotos.forEach(foto => {
+
       console.log("foto")
       let categoria = foto.querySelector('[id^="categoriaFoto"]');
       console.log("-------------------------------------------")
       console.log(categoria.innerText)
       if(categoria.innerText ==filtroCategoria.value){
-        foto.style.display = "flex";
+        return true;
       }else{
-        foto.style.display = "none";
+        return false;
       }
-    })
-  }
-  if(filtroCategoria.value == "Todos"){
     
-    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
-    fotos.forEach(foto => {
-     
-        foto.style.display = "flex";
-     
-    })
-  }
+  
+} else{
+    
+  return true;
+}
 }
 
-function filtrarPorEtiqueta(){
+function filtrarPorEtiqueta(foto){
+  let filtroEtiquetas =  document.getElementById("filtroEtiquetas");
   if(filtroEtiquetas.value == ""){
-    console.log("probando filtro letras")
-    
-    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
-    fotos.forEach(foto => {
-      console.log("foto1")
-        foto.style.display = "flex";
+    console.log("probando filtro letras valor nulo")
      
-    })
-    return
-  }
-
-  if(filtroEtiquetas.value != ""){
-    console.log("probando filtro letras")
-    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
-    fotos.forEach(foto => {
+      return true
+  }else{
+  
+  
+    console.log("probando filtro letras valor no nulo ")
+    
      // console.log("foto")
       let esIgual=false;
       let etiquetas = foto.querySelectorAll('[id^="textEtiqueta"]')
       etiquetas.forEach(etiqueta => {
+        console.log("etiqueta probando")
         if(etiqueta.value.toLowerCase().includes(filtroEtiquetas.value.toLowerCase())){
           esIgual=true;
         }
        
     })
-      if(esIgual){
-        foto.style.display = "flex";
-      }else{
-        foto.style.display = "none";
-      }
+      return esIgual
 
-  })
-}
+    }
 }

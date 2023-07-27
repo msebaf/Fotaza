@@ -10,6 +10,8 @@ body{
     justify-content: space-around;
     align-items: center;
     background-color: #3498db;
+    position: fixed;
+    top: 0;
   
     width: 100%;
     height: 5vh;
