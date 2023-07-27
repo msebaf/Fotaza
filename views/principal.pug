@@ -9,16 +9,16 @@ block content
     .div-cabecera(id="buscador-perfil")
       input(type="search", name="buscarUsuarios", placeholder="Busca un Usuario", id="buscaUsuario")
       
-    .div-cabecera(id="busca-filtros") 
-      select(name="filtro1", class="filtro")
-        option(value="todos") ---Elige una categoria---
+    .div-cabecera( id="filtroCategoria") 
+      select(name="filtro1", class="filtro" id="filtroCategoriaSelect")
+        option(value="Todos", selected) ---Elige una categoria---
         option(value="Naturaleza y Paisajes") Naturaleza y Paisajes
         option(value="Viajes y Turismo") Viajes y Turismo
         option(value="Estilo de Vida y Cultura") Estilo de Vida y Cultura
         option(value="Arte y Creatividad") Arte y Creatividad
         option(value="Retratos y Personas") Retratos y Personas
         option(value="Aventuras y Deportes") Aventuras y Deportes
-      input(type="text", name="", placeholder="Busca una etiquetas") 
+      input(type="text", name="", placeholder="Busca una etiquetas", id="filtroEtiquetas") 
       
 
     .div-cabecera
@@ -69,7 +69,10 @@ block content
     each imagen in imagenes
       br
       br
-      .row(id="foto" + imagen.id)
+      .row(id="foto-main-container" + imagen.id)
+        input(type="text", id="textEtiqueta1", value=imagen.etiqueta1, hidden)
+        input(type="text", id="textEtiqueta2", value=imagen.etiqueta2, hidden)
+        input(type="text", id="textEtiqueta3", value=imagen.etiqueta3, hidden)
         .col-3
           | Contenido de la columna 1
         .col-6(class="foto-cont")
@@ -84,6 +87,22 @@ block content
               .datos
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
                 p(id="cantVotos"+imagen.id)= "votos: " + imagen.cantVotos
+          .categoriaFoto(id="categoriaFoto"+imagen.id)
+            p= imagen.categoria.categoria
+          .etiquetasMostrar 
+            if(imagen.etiqueta1 || imagen.etiqueta2 || imagen.etiqueta3)
+              .etiquetaKeyword
+                p Keywords:
+              .restoEtiquetas
+                if(imagen.etiqueta1)
+                  .etiqueta1
+                    p(id="Etiqueta1")= imagen.etiqueta1 + " "
+                if(imagen.etiqueta2)
+                  .etiqueta2
+                    p(id="Etiqueta2")= imagen.etiqueta2  + " "
+                if(imagen.etiqueta3)
+                  .etiqueta3
+                    p(id="Etiqueta3")= imagen.etiqueta3 + " "
           img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id)
           if(autenticado)
             .estrellasCont(id="estrellasCont" + imagen.id)

@@ -43,9 +43,11 @@ router.get('/', async function(req, res, next) {
       },
       {
         model: licencia,
+        as: 'licencia',
       },
       {
         model: categoria,
+        as: 'categoria',
       }
     ]
   });
@@ -77,9 +79,11 @@ router.get('/', async function(req, res, next) {
       },
       {
         model: licencia,
+        as: 'licencia',
       },
       {
-        model: categoria,
+        model: categoria, // Incluir el modelo Categoria
+        as: 'categoria', 
       }
     ]
   });
@@ -87,13 +91,19 @@ router.get('/', async function(req, res, next) {
     if (imagenes) {
 
       for (const imagen of imagenes) {
+      //  console.log("licencia")
+      //  console.log(imagen.licencia)
+        console.log("categorias")
+       console.log(imagen.categoria)
+       // console.log("privaciad")
+      //  console.log(imagen.privacidad)
         const comentarios = imagen.comentarios;
         for (const comentario of comentarios) {
           const perfil = comentario.perfil;
       
-          console.log("---------------------------------------------------------------------------------------------")
-          console.log("---------------------------------------------------------------------------------------------")
-          console.log(perfil.nombreUsuario); 
+         // console.log("---------------------------------------------------------------------------------------------")
+        //  console.log("---------------------------------------------------------------------------------------------")
+         // console.log(perfil.nombreUsuario); 
           
           
         }
@@ -117,8 +127,8 @@ router.get('/', async function(req, res, next) {
       imagen.cantVotos=cantVotos;
       imagen.votoUsuario=votoUsuario;
       }
-      console.log("Se vienen las imagnes")
-      console.log("mira acaaaaaaaaaaa  "+ imagenes[0].comentario)
+      //console.log("Se vienen las imagnes")
+     
       
       res.render('principal', { autenticado, imagenes }); 
       

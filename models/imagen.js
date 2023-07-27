@@ -24,11 +24,13 @@ module.exports = (sequelize, DataTypes) => {
       })
       imagen.hasOne(models.licencia, {
         sourceKey: 'licenciaId',
-        foreignKey: 'id'
+        foreignKey: 'id',
+        as: 'licencia'
       })
       imagen.hasOne(models.categoria, {
         sourceKey: 'categoriaId',
-        foreignKey: 'id'
+        foreignKey: 'id',
+        as: 'categoria'
       })
       
     }

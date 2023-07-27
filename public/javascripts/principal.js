@@ -741,3 +741,89 @@ function buscarPerfil(){
       listaResultados.innerHTML = '';
     }
   };
+
+
+
+
+
+let filtroCategoria =  document.getElementById("filtroCategoriaSelect");
+filtroCategoria.addEventListener("change", filtrarFotos)
+
+let filtroEtiquetas =  document.getElementById("filtroEtiquetas");
+filtroEtiquetas.addEventListener("input", filtrarFotos)
+
+function filtrarFotos(){
+      filtrarPorCategoria();
+  
+}
+
+
+
+
+function filtrarPorCategoria(){
+
+  console.log("funcion activada")
+  let filtroCategoria =  document.getElementById("filtroCategoriaSelect");
+   let filtroEtiquetas =  document.getElementById("filtroEtiquetas");
+   
+  if(filtroCategoria.value != "Todos"){
+    
+    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
+    fotos.forEach(foto => {
+      console.log("foto")
+      let categoria = foto.querySelector('[id^="categoriaFoto"]');
+      console.log("-------------------------------------------")
+      console.log(categoria.innerText)
+      if(categoria.innerText ==filtroCategoria.value){
+        foto.style.display = "flex";
+      }else{
+        foto.style.display = "none";
+      }
+    })
+  }
+  if(filtroCategoria.value == "Todos"){
+    
+    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
+    fotos.forEach(foto => {
+     
+        foto.style.display = "flex";
+     
+    })
+  }
+}
+
+function filtrarPorEtiqueta(){
+  if(filtroEtiquetas.value == ""){
+    console.log("probando filtro letras")
+    
+    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
+    fotos.forEach(foto => {
+      console.log("foto1")
+        foto.style.display = "flex";
+     
+    })
+    return
+  }
+
+  if(filtroEtiquetas.value != ""){
+    console.log("probando filtro letras")
+    let fotos = document.querySelectorAll('[id^="foto-main-container"]');
+    fotos.forEach(foto => {
+     // console.log("foto")
+      let esIgual=false;
+      let etiquetas = foto.querySelectorAll('[id^="textEtiqueta"]')
+      etiquetas.forEach(etiqueta => {
+        if(etiqueta.value.toLowerCase().includes(filtroEtiquetas.value.toLowerCase())){
+          esIgual=true;
+        }
+       
+    })
+      if(esIgual){
+        foto.style.display = "flex";
+      }else{
+        foto.style.display = "none";
+      }
+
+  })
+}
+}
