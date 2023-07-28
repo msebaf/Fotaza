@@ -831,3 +831,25 @@ function filtrarPorEtiqueta(foto){
 
     }
 }
+
+
+//-------------------------
+try{
+let licencia = document.getElementById("licencia");
+licencia.addEventListener("change", ajustarPrivacidad);
+}catch(e){
+  console.log("no aplica")
+}
+
+function ajustarPrivacidad(){
+  if(licencia.value == "1"){
+    privacidad = document.getElementById("privacidad")
+    privacidad.value= "2";
+    privacidad.setAttribute("disabled", true);
+  }else{
+    privacidad = document.getElementById("privacidad")
+
+    privacidad.removeAttribute("disabled");
+  }
+  
+}
