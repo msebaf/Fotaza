@@ -91,10 +91,11 @@ router.get('/', async function(req, res, next) {
     if (imagenes) {
 
       for (const imagen of imagenes) {
+        console.log(imagen.marcaAgua)
       //  console.log("licencia")
       //  console.log(imagen.licencia)
-        console.log("categorias")
-       console.log(imagen.categoria)
+       // console.log("categorias")
+      // console.log(imagen.categoria)
        // console.log("privaciad")
       //  console.log(imagen.privacidad)
         const comentarios = imagen.comentarios;

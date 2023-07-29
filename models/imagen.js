@@ -88,6 +88,10 @@ module.exports = (sequelize, DataTypes) => {
     privacidadId: {
       type:DataTypes.INTEGER,
       allowNull: false
+    },
+    marcaAgua:{
+      type:DataTypes.STRING,
+      allowNull: true
     }
 
   }, {

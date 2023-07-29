@@ -4,6 +4,8 @@ block content
 
   link(rel="stylesheet", href="/stylesheets/principal.css")
   script(src="/javascripts/principal.js", defer) 
+  script(src="/javascripts/cargarImagen.js")
+  
 
   .cabecera 
     .div-cabecera(id="buscador-perfil")
@@ -44,10 +46,10 @@ block content
           img(src="/icons/subiObra.png", alt="", id="fotoAsubir") 
         form(action="imagen/publicar", method="post", enctype="multipart/form-data" id="subirFoto")
           input(type="file", name="foto", id="foto")
-
+          
           label(for="titulo") Titulo
           input(type="text", name="titulo")
-
+          input(type="text", name="marcaAgua", id="marcaA" placeholder="Escribe tu marca de agua personaliada")
           label(for="categoria") Categoria
           select(name="categoria")
             option(value="1") Naturaleza y Paisajes
@@ -114,8 +116,8 @@ block content
                     p(id="Etiqueta2")= imagen.etiqueta2  + " "
                 if(imagen.etiqueta3)
                   .etiqueta3
-                    p(id="Etiqueta3")= imagen.etiqueta3 + " "
-          img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id)
+                    p(id="Etiqueta3")= imagen.etiqueta3 + " " 
+          img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id, onload=`watermarkImageWithText(${imagen.id}, ${autenticado}, ${imagen.privacidadId}, "${imagen.marcaAgua}")`)
           if(autenticado)
             .estrellasCont(id="estrellasCont" + imagen.id)
               if(imagen.votoUsuario == 1 || imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
