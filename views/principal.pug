@@ -25,7 +25,11 @@ block content
 
     .div-cabecera(id= "chat-salir")
       a(href="/perfil/", id="linkPerfil") Mi Perfil
-      p(onclick=`chatOn()`) icono
+      .divChat
+        .imgChatCont
+          img(src="/icons/pngwing.com.png", alt="", id="imgChat")
+        .cantMensajes
+          p= "100"
       a(href="/", id="linkSalir") Salir
 
   .listaPerfiles 

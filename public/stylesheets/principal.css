@@ -287,3 +287,32 @@ details{
 .etiqueta3{
     margin-right: 10px;
 }
+
+
+.divChat{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.imgChatCont :hover{
+   
+    background-color:#78c0f0 ;
+    
+}
+#imgChat{
+    width: 3vh;
+    height: 3vh;
+}
+
+.cantMensajes{
+    width: 2vh;
+    height: 2vh;
+    background-color: red;
+    border-radius: 25px;
+    display: flex;
+    font-size: 10px;
+    justify-content: center;
+}

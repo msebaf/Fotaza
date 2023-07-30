@@ -7,25 +7,101 @@ const { Op, sequelize, literal } = require('sequelize');
 
 router.get('/', async function(req, res, next) {
   try {
-    const receptorId = req.session.usuarioId;
+    const idUsuario = req.session.usuarioId;
 
-    const subquery = `(SELECT MAX(id) FROM mensajes AS m2 WHERE m2.receptorId = ${receptorId} AND m2.emisorId != ${receptorId} GROUP BY m2.emisorId)`;
+    const subquery = `(SELECT MAX(id) FROM mensajes AS m2 WHERE m2.receptorId = ${idUsuario} AND m2.emisorId != ${idUsuario} GROUP BY m2.emisorId)`;
 
-    const mensajes = await mensaje.findAll({
+    const mensajesAusuario = await mensaje.findAll({
       attributes: ['emisorId', 'texto', 'fechaHora'],
       include: {
         model: perfil,
         attributes: ['nombreUsuario', 'avatar', 'usuarioId'],
       },
       where: {
-        receptorId: receptorId,
+        receptorId: idUsuario,
         id: {
           [Op.in]: literal(subquery),
         },
       },
     });
 
-    res.json(mensajes);
+    console.log("---------mensajes a usuario-----------")
+    console.log(mensajesAusuario);
+
+    //obtener mensajes de usuario a otros
+
+    const subquery2 = `(SELECT MAX(id) FROM mensajes AS m2 WHERE m2.emisorId = ${idUsuario} AND m2.receptorId != ${idUsuario} GROUP BY m2.receptorId)`;
+
+    const mensajesDEusuario = await mensaje.findAll({
+      attributes: ['receptorId', 'texto', 'fechaHora'],
+      include: {
+        model: perfil,
+        attributes: ['nombreUsuario', 'avatar', 'usuarioId'],
+      },
+      where: {
+        emisorId: idUsuario,
+        id: {
+          [Op.in]: literal(subquery2),
+        },
+      },
+    });
+    console.log("---------mensajes de usuario-----------")
+    console.log(mensajesDEusuario);
+
+      let listaUltimosMensajes=[];
+
+    if(mensajesAusuario.length> mensajesDEusuario.length){
+        console.log("--------------------------mas mensajes a usuario-----------------")
+        mensajesAusuario.forEach(mensaje=>{
+          let unico = true
+          mensajesDEusuario.forEach(mensaje2=>{
+            if(mensaje.emisorId == mensaje2.receptorId && mensaje.receptorId == mensaje2.emisorId){
+              unico = false
+              if(mensaje.fechaHora < mensaje2.fechaHora){
+                mensaje2.perfil.nombreUsuario = mensaje.perfil.nombreUsuario;
+                mensaje2.perfil.avatar = mensaje.perfil.avatar;
+                listaUltimosMensajes.push(mensaje2)
+              }else{
+                listaUltimosMensajes.push(mensaje)
+              }
+
+            }
+              
+            })
+            if(unico){
+              listaUltimosMensajes.push(mensaje)
+            }
+          })
+
+    }else{
+        console.log("--------------------------mas mensajes de usuario-----------------")
+        
+          mensajesDEusuario.forEach(mensaje=>{
+            let unico = true
+            mensajesAusuario.forEach(mensaje2=>{
+              if(mensaje.emisorId == mensaje2.receptorId && mensaje.receptorId == mensaje2.emisorId){
+                unico = false
+                if(mensaje.fechaHora < mensaje2.fechaHora){
+                  
+                  listaUltimosMensajes.push(mensaje2)
+                }else{
+                  mensaje.perfil.nombreUsuario = mensaje2.perfil.nombreUsuario;
+                  mensaje.perfil.avatar = mensaje2.perfil.avatar
+                  listaUltimosMensajes.push(mensaje)
+                }
+              }
+              
+            })
+            if(unico){
+              listaUltimosMensajes.push(mensaje)
+            }
+          })
+        
+      }
+
+      console.log(listaUltimosMensajes)
+
+    res.json(listaUltimosMensajes);
   } catch (err) {
     console.error(err);
     res.status(500).send('Error en el servidor');
