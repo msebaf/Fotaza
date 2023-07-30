@@ -855,5 +855,163 @@ function ajustarPrivacidad(){
 }
 
 
-//------------------------------------------------
+//------------------------------------------------chat
+
+let iconoChat = document.getElementById("imgChat");
+iconoChat.addEventListener("click", cargarChats);
+let desplegado=false
+let chatsAbiertos=false;
+let listaChats = document.getElementById("paraBarraMensajes");
+function cargarChats(){
+  
+ if(!desplegado){
+  desplegado=true;
+    fetch(`/mensaje/chats`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("---------data-----------")
+        console.log(data);
+        // Limpiar los resultados anteriores
+        listaChats.innerHTML = '';
+
+        // Mostrar los resultados de la búsqueda
+        data.forEach(mensaje => {
+          console.log("--------------perfil----------------")
+          console.log(mensaje)
+          let itemLista = document.createElement('div');
+          itemLista.setAttribute('class', 'item-lista');
+          listaChats.appendChild(itemLista);
+          itemLista.setAttribute('class', 'item-lista');
+          let imagenItem = document.createElement('img');
+          imagenItem.setAttribute("class", "img-perfil-chat");
+          imagenItem.setAttribute("src", mensaje.perfil.avatar);
+          itemLista.appendChild(imagenItem);
+          let nombre = document.createElement('p');
+          nombre.textContent = mensaje.perfil.nombreUsuario;
+          itemLista.appendChild(nombre);
+          itemLista.addEventListener('click', () => cargaChat(mensaje.perfil.usuarioId));
+
+        });
+      })
+      .catch(error => {
+        console.error('Error en la búsqueda:', error);
+      });
+  } else {
+    // Limpiar la lista de resultados si no hay una consulta
+    desplegado =false;
+    listaChats.innerHTML = '';
+  }
+}
+
+
+function retornarChats(){
+  desplegado=true;
+  chatsAbiertos=false;
+    fetch(`/mensaje/chats`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("---------data-----------")
+        console.log(data);
+        // Limpiar los resultados anteriores
+        listaChats.innerHTML = '';
+
+        // Mostrar los resultados de la búsqueda
+        data.forEach(mensaje => {
+          console.log("--------------perfil----------------")
+          console.log(mensaje)
+          let itemLista = document.createElement('div');
+          itemLista.setAttribute('class', 'item-lista');
+          listaChats.appendChild(itemLista);
+          itemLista.setAttribute('class', 'item-lista');
+          let imagenItem = document.createElement('img');
+          imagenItem.setAttribute("class", "img-perfil-chat");
+          imagenItem.setAttribute("src", mensaje.perfil.avatar);
+          itemLista.appendChild(imagenItem);
+          let nombre = document.createElement('p');
+          nombre.textContent = mensaje.perfil.nombreUsuario;
+          itemLista.appendChild(nombre);
+          itemLista.addEventListener('click', () => cargaChat(mensaje.perfil.usuarioId));
+
+        });
+      })
+      .catch(error => {
+        console.error('Error en la búsqueda:', error);
+      });
+}
+
+function cargaChat(id){
+  listaChats.innerHTML = '';
+
+  let itemListaEsp = document.createElement('div');
+  
+  itemListaEsp.setAttribute('class', 'item-lista');
+  listaChats.appendChild(itemListaEsp);
+  itemListaEsp.setAttribute('class', 'item-lista');
+  
+  let nombre = document.createElement('p');
+  nombre.textContent = "<---";
+  itemListaEsp.addEventListener('click', () => retornarChats());
+  itemListaEsp.appendChild(nombre);
+
+
+  fetch(`/mensaje/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("---------data-----------")
+        console.log(data);
+        // Limpiar los resultados anteriores
+       
+
+        // Mostrar los resultados de la búsqueda
+        data.forEach(mensaje => {
+          console.log("--------------perfil----------------")
+          console.log(mensaje.perfil
+            )
+          let itemLista = document.createElement('div');
+          console.log("usuario id")
+          console.log(mensaje.perfil.usuarioId)
+          if(mensaje.emisorId != id){
+            console.log(mensaje.emisorId == id)
+            console.log(mensaje.emisorId)
+            console.log(id)
+            console.log(mensaje.receptorId)
+          itemLista.setAttribute('class', 'item-lista-uno');
+          listaChats.appendChild(itemLista);
+          
+          let imagenItem = document.createElement('img');
+          imagenItem.setAttribute("class", "img-perfil-chat");
+          imagenItem.setAttribute("src", mensaje.perfil.avatar);
+          itemLista.appendChild(imagenItem);
+          let nombre = document.createElement('p');
+          nombre.textContent = mensaje.texto;
+          itemLista.appendChild(nombre);
+          }else{
+         console.log(mensaje.emisorId)
+         console.log(id)
+         console.log(mensaje.receptorId)
+          itemLista.setAttribute('class', 'item-lista-otro');
+          listaChats.appendChild(itemLista);
+          
+          let nombre = document.createElement('p');
+          nombre.textContent = mensaje.texto;
+          itemLista.appendChild(nombre);
+          let imagenItem = document.createElement('img');
+          imagenItem.setAttribute("class", "img-perfil-chat");
+          imagenItem.setAttribute("src", mensaje.perfil.avatar);
+          itemLista.appendChild(imagenItem);
+          
+          
+
+          }
+          
+
+        });
+      })
+      .catch(error => {
+        console.error('Error en la búsqueda:', error);
+      });
+  
+
+}
+
 

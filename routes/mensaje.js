@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const {mensaje, perfil} = require('../models');
 const { Op, sequelize, literal } = require('sequelize');
 
-router.get('/', async function(req, res, next) {
+router.get('/chats', async function(req, res, next) {
   try {
     const idUsuario = req.session.usuarioId;
 
@@ -87,6 +87,7 @@ router.get('/', async function(req, res, next) {
                 }else{
                   mensaje.perfil.nombreUsuario = mensaje2.perfil.nombreUsuario;
                   mensaje.perfil.avatar = mensaje2.perfil.avatar
+                  mensaje.perfil.usuarioId = mensaje2.perfil.usuarioId
                   listaUltimosMensajes.push(mensaje)
                 }
               }
@@ -107,6 +108,40 @@ router.get('/', async function(req, res, next) {
     res.status(500).send('Error en el servidor');
   }
 });
+
+router.get('/:id', async function(req, res, next) {
+  try {
+    const mensajes = await mensaje.findAll({
+      //attributes: ['emisorId', 'texto', 'fechaHora'],
+      include: {
+        model: perfil,
+        attributes: ['avatar', 'usuarioId'],
+      },
+      where: {
+        [Op.or]: [
+          {
+            [Op.and]: [
+              { emisorId: req.session.usuarioId },
+              { receptorId: req.params.id },
+            ],
+          },
+          {
+            [Op.and]: [
+              { emisorId: req.params.id },
+              { receptorId: req.session.usuarioId },
+            ],
+          },
+        ],
+      },
+      order: [['fechaHora', 'DESC']], // Ordenar por fechaHora en orden descendente (los mensajes más nuevos primero)
+    });
+
+    res.json(mensajes);
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 
 module.exports = router;

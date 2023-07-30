@@ -5,6 +5,10 @@ body{
 
 }
 
+p {
+    word-break: break-all;
+  }
+
 .cabecera{
     display: flex;
     flex-direction: row;
@@ -32,7 +36,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: baseline;
+    align-items: flex-start;
     background-color:transparent;
     position: fixed;
     top: 5vh;
@@ -47,6 +51,16 @@ body{
     height: inherit;
 }
 
+.div-nada{
+    width: 20%;
+    height: inherit;
+}
+
+.div-mensajes{
+    display: flex;
+    width: 20%;
+    height: inherit;
+}
 .paraBarra{
     width: 75%;
     overflow-y: scroll;
@@ -54,6 +68,9 @@ body{
     max-height: 100%;
 }
 
+#paraBarraMensajes{
+    height: fit-content;
+}
 .item-lista{
   width: 100%;
   height: 100%;
@@ -62,8 +79,39 @@ body{
   padding-left: 20px;
   border: black 1px solid;
   border-top: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
   
 }
+
+.item-lista-uno{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    height: max-content;
+   
+    border: black 1px solid;
+    border-top: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    
+  }
+
+.item-lista-otro{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    height: max-content;
+    padding-left: 20px;
+    border: black 1px solid;
+    border-top: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    
+  }
 
 
       
@@ -308,11 +356,16 @@ details{
 }
 
 .cantMensajes{
-    width: 2vh;
+    width: 3vh;
     height: 2vh;
     background-color: red;
     border-radius: 25px;
     display: flex;
     font-size: 10px;
     justify-content: center;
+}
+
+.img-perfil-chat{
+    width: 4vh;
+    height: 4vh;
 }

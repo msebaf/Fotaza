@@ -2,17 +2,18 @@
 function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
 
     if(!autenticado){
-    //console.log(" probando watermarkImageWithText");
+    console.log(" probando watermarkImageWithText");
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
     originalImage = document.getElementById("foto" + id);
+    originalImage.removeAttribute("onload");
     const canvasWidth = originalImage.width;
     const canvasHeight = originalImage.height;
   
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    //console.log("canvas width: " + canvas.width);
-    //console.log("canvas height: " + canvas.height);
+    console.log("canvas width: " + canvas.width);
+    console.log("canvas height: " + canvas.height);
   
     // initializing the canvas with the original image
     context.drawImage(originalImage, 0, 0, canvasWidth, canvasHeight);
@@ -56,27 +57,28 @@ function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
   
     // Combine the original image with the watermark text
     context.drawImage(watermarkCanvas, 0, 0);
-  
+    watermarkCanvas.remove();
     originalImage.src = canvas.toDataURL();
   
   
     }else if(autenticado && privacidad==2){
         
 
-       // console.log("probando watermarkImageWithText");
-        //console.log(marcaAgua);
-        //console.log("probando watermarkImageWithText");
+       console.log("probando watermarkImageWithText");
+        console.log(marcaAgua);
+        console.log("probando watermarkImageWithText");
       
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
         const originalImage = document.getElementById("foto" + id);
+        originalImage.removeAttribute("onload");
         const canvasWidth = originalImage.width;
         const canvasHeight = originalImage.height;
       
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
-       // console.log("canvas width: " + canvas.width);
-       // console.log("canvas height: " + canvas.height);
+       console.log("canvas width: " + canvas.width);
+       console.log("canvas height: " + canvas.height);
       
         // initializing the canvas with the original image
         context.drawImage(originalImage, 0, 0, canvasWidth, canvasHeight);
@@ -119,6 +121,8 @@ function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
       
         // Combine the original image with the watermark text
         context.drawImage(watermarkCanvas, 0, 0);
+
+        watermarkCanvas.remove();
       
         originalImage.src = canvas.toDataURL();
     }
