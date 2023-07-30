@@ -19,6 +19,15 @@ body{
  
 
 }
+
+#chat-salir{
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 .listaPerfiles{
     display: flex;
     flex-direction: row;
@@ -98,6 +107,7 @@ body{
     text-decoration: none;
 }
 
+
 #linkPerfil:visited{
     color: white;
     text-decoration: none;
@@ -108,6 +118,24 @@ body{
 #linkPerfil:hover{
     color: rgb(190, 167, 167);
 }
+
+#linkSalir{
+    color: white;
+    text-decoration: none;
+}
+
+
+#linkSalir:visited{
+    color: white;
+    text-decoration: none;
+    
+    
+}
+
+#linkSalir:hover{
+    color: rgb(190, 167, 167);
+}
+
 .container{
     display: flex;
     flex-direction: column;

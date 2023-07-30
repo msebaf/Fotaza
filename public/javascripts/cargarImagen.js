@@ -2,7 +2,7 @@
 function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
 
     if(!autenticado){
-    console.log(" probando watermarkImageWithText");
+    //console.log(" probando watermarkImageWithText");
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
     originalImage = document.getElementById("foto" + id);
@@ -11,8 +11,8 @@ function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
   
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    console.log("canvas width: " + canvas.width);
-    console.log("canvas height: " + canvas.height);
+    //console.log("canvas width: " + canvas.width);
+    //console.log("canvas height: " + canvas.height);
   
     // initializing the canvas with the original image
     context.drawImage(originalImage, 0, 0, canvasWidth, canvasHeight);
@@ -63,9 +63,9 @@ function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
     }else if(autenticado && privacidad==2){
         
 
-        console.log("probando watermarkImageWithText");
-        console.log(marcaAgua);
-        console.log("probando watermarkImageWithText");
+       // console.log("probando watermarkImageWithText");
+        //console.log(marcaAgua);
+        //console.log("probando watermarkImageWithText");
       
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
@@ -75,8 +75,8 @@ function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
       
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
-        console.log("canvas width: " + canvas.width);
-        console.log("canvas height: " + canvas.height);
+       // console.log("canvas width: " + canvas.width);
+       // console.log("canvas height: " + canvas.height);
       
         // initializing the canvas with the original image
         context.drawImage(originalImage, 0, 0, canvasWidth, canvasHeight);
@@ -125,3 +125,14 @@ function watermarkImageWithText(id, autenticado, privacidad, marcaAgua) {
     
         
 }
+
+
+function chatOn(){
+    console.log("estoy chateando")
+    fetch(`/mensaje/`)
+      .then(response => response.json())
+          .then(data => {
+            console.log("---------data-----------")
+            console.log(data);
+    })
+  }

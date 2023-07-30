@@ -23,8 +23,10 @@ block content
       input(type="text", name="", placeholder="Busca una etiquetas", id="filtroEtiquetas") 
       
 
-    .div-cabecera
+    .div-cabecera(id= "chat-salir")
       a(href="/perfil/", id="linkPerfil") Mi Perfil
+      p(onclick=`chatOn()`) icono
+      a(href="/", id="linkSalir") Salir
 
   .listaPerfiles 
     .div-lista(id="div-lista")

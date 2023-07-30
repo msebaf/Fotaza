@@ -18,6 +18,7 @@ var votosRouter = require('./routes/votos');
 var imagenRouter = require('./routes/imagen');
 var principalRouter = require('./routes/principal');
 var authRouter = require('./routes/auth').router;
+var mensajesRouter = require('./routes/mensaje');
 
 var app = express();
 
@@ -78,6 +79,7 @@ app.use('/auth', authRouter);
 app.use('/imagen',EstaAutenticado, imagenRouter);
 app.use('/comentarios',EstaAutenticado, comentariosRouter);
 app.use('/votos',EstaAutenticado, votosRouter);
+app.use('/mensaje',EstaAutenticado, mensajesRouter);
 
 
 // Manejador de errores 404 y de errores generales
