@@ -1,5 +1,6 @@
 
 var arrayClickeados = [];
+let usuarioLogeado = document.getElementById('logeado').checked ;
 
 function click1estrella(imagenId, controlVoto) {
     console.log(imagenId)
@@ -857,6 +858,8 @@ function ajustarPrivacidad(){
 
 //------------------------------------------------chat
 
+if(usuarioLogeado){
+
 let iconoChat = document.getElementById("imgChat");
 iconoChat.addEventListener("click", cargarChats);
 let desplegado=false
@@ -890,6 +893,7 @@ function cargarChats(){
           nombre.textContent = mensaje.perfil.nombreUsuario;
           itemLista.appendChild(nombre);
           itemLista.addEventListener('click', () => cargaChat(mensaje.perfil.usuarioId));
+          itemLista.addEventListener('click', () => marcarMensajeComoVisto(mensaje.perfil.usuarioId));
 
         });
       })
@@ -931,6 +935,7 @@ function retornarChats(){
           nombre.textContent = mensaje.perfil.nombreUsuario;
           itemLista.appendChild(nombre);
           itemLista.addEventListener('click', () => cargaChat(mensaje.perfil.usuarioId));
+          itemLista.addEventListener('click', () => marcarMensajeComoVisto(mensaje.perfil.usuarioId));
 
         });
       })
@@ -1001,7 +1006,7 @@ function cargaChat(id){
           itemLista.appendChild(imagenItem);
           
           
-
+           
           }
           
 
@@ -1015,3 +1020,23 @@ function cargaChat(id){
 }
 
 
+  async function marcarMensajeComoVisto(id) {
+    try {
+      const response = await fetch(`/mensaje/marcarVisto/${id}`, {
+        method: 'GET',
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message); // Debería imprimir "Mensaje marcado como visto"
+      } else {
+        console.error('Error al marcar mensaje como visto:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    }
+  
+  
+}
+
+}

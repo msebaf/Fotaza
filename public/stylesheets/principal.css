@@ -358,7 +358,7 @@ details{
 .cantMensajes{
     width: 3vh;
     height: 2vh;
-    background-color: red;
+    background-color: rgb(94, 238, 94);
     border-radius: 25px;
     display: flex;
     font-size: 10px;

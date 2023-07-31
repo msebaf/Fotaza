@@ -5,6 +5,7 @@ block content
   link(rel="stylesheet", href="/stylesheets/principal.css")
   script(src="/javascripts/principal.js", defer) 
   script(src="/javascripts/cargarImagen.js")
+  script(src="/javascripts/controlMensajes.js", defer)
   
 
   .cabecera 
@@ -24,12 +25,14 @@ block content
       
 
     .div-cabecera(id= "chat-salir")
-      a(href="/perfil/", id="linkPerfil") Mi Perfil
+      if(autenticado)
+        a(href="/perfil/", id="linkPerfil") Mi Perfil
       .divChat
-        .imgChatCont
-          img(src="/icons/pngwing.com.png", alt="", id="imgChat")
-        .cantMensajes
-          p= "100"
+        if(autenticado)
+          .imgChatCont
+            img(src="/icons/pngwing.com.png", alt="", id="imgChat")
+          .cantMensajes(id="cantMensajesContenedor")
+            p(id="canMensajes")
       a(href="/", id="linkSalir") Salir
 
   .listaPerfiles 
@@ -39,6 +42,7 @@ block content
       
       
     .div-nada
+      input(type="checkbox" id="logeado", checked= autenticado, hidden)
       
 
     .div-mensajes

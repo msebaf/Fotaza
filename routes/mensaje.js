@@ -5,6 +5,48 @@ const bcrypt = require("bcrypt");
 const {mensaje, perfil} = require('../models');
 const { Op, sequelize, literal } = require('sequelize');
 
+
+
+router.get('/nuevos', async function(req, res, next) {
+  try {
+    const mensajesNuevos = await mensaje.count({
+      where: {
+        visto: false,
+        receptorId: req.session.usuarioId,
+      },
+    });
+
+    res.json({ mensajesNuevos });
+  } catch (error) {
+    console.error('Error al obtener mensajes nuevos:', error);
+    res.status(500).json({ error: 'Error al obtener mensajes nuevos' });
+  }
+});
+router.get('/marcarVisto/:id', async function(req, res, next) {
+  console.log("-----------------------consulta acaaaa-------------------------------")
+  try {
+    const mensajes = await mensaje.findAll({
+      where: {
+        receptorId: req.session.usuarioId,
+        emisorId: req.params.id,
+        visto: false,
+      },
+    });
+
+    for (const msg of mensajes) {
+      console.log(msg)
+      msg.visto = true;
+      await msg.save();
+    }
+
+    res.json({ message: 'Mensajes marcados como vistos' });
+  } catch (error) {
+    console.error('Error al marcar mensajes como vistos:', error);
+    res.status(500).json({ error: 'Error al marcar mensajes como vistos' });
+  }
+});
+
+
 router.get('/chats', async function(req, res, next) {
   try {
     const idUsuario = req.session.usuarioId;

@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     fechaHora:{
       type:DataTypes.DATE,
       allowNull: false
+    },
+    visto:{
+      type:DataTypes.BOOLEAN,
+      allowNull:false
     }
   }, {
     sequelize,
