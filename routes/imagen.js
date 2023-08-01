@@ -12,7 +12,7 @@ var router = express.Router();
 
 router.post("/publicar", async (req, res) => {
   try {
-    const { titulo, categoria, etiqueta1, etiqueta2, etiqueta3, privacidad, licencia } = req.body;
+    const { titulo, categoria, etiqueta1, etiqueta2, etiqueta3, privacidad, licencia,marcaAgua, comentarioAutor } = req.body;
     const autor = req.session.user;
     const autorId = req.session.usuarioId;
     const { foto } = req.files;
@@ -57,6 +57,8 @@ router.post("/publicar", async (req, res) => {
       formato: formato,
       resolucion: null,
       ruta: rutaImagen,
+      marcaAgua:marcaAgua,
+      comentarioAutor: comentarioAutor
     });
     if(newImagen){
     res.redirect("/principal");

@@ -92,6 +92,10 @@ module.exports = (sequelize, DataTypes) => {
     marcaAgua:{
       type:DataTypes.STRING,
       allowNull: true
+    },
+    comentarioAutor:{
+      type:DataTypes.STRING,
+      allowNull: true
     }
 
   }, {

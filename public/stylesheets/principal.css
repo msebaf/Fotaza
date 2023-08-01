@@ -282,9 +282,8 @@ details{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
     width: 100%;
+    margin-bottom: 2px;
 }
 
 #fotoAsubir{
@@ -376,4 +375,11 @@ details{
 
 .foto-perfil-busqueda{
     width: 4vh;
-    height: 4vh;}
+    height: 4vh;
+}
+
+.comentario-autor-foto{
+    border: gainsboro solid 1px;
+    width: 100%;
+    border-radius: 10px;
+}
