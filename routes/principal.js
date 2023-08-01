@@ -18,8 +18,10 @@ router.get('/', async function(req, res, next) {
   console.log(req.session.user);
   let imagenes;
   let autenticado;
+  let usuarioId= null;
   if(req.session.isAuthenticated){
     autenticado=true;
+    usuarioId = req.session.usuarioId;
    imagenes = await imagen.findAll({
     order: [['fechaCreacion', 'DESC']],
     include: [
@@ -131,7 +133,7 @@ router.get('/', async function(req, res, next) {
       //console.log("Se vienen las imagnes")
      
       
-      res.render('principal', { autenticado, imagenes }); 
+      res.render('principal', { autenticado, imagenes, usuarioId }); 
       
     } else {
       console.error(err);

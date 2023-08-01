@@ -1,9 +1,4 @@
 
-body{
-    margin: 0px;
-    padding: 0px;
-
-}
 .container-perfil{
     text-align: center;
     display: flex;
@@ -14,21 +9,12 @@ body{
     
 }
 
-.cabecera{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #3498db;
-  
-    width: 100%;
-    height: 5vh;
-}
+
 
 .img-perfil{
     height: 200px;
     width: 200px;
-    border-radius: 50%;
+    border-radius: 25%;
 }
 
 .datos-personales{
@@ -42,7 +28,7 @@ h4{
     margin-right: 10px;
 }
 
-p{
+#intereses{
     width: 50%;
 }
 
@@ -68,11 +54,7 @@ p{
     color: rgb(190, 167, 167);
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 
 .datos-Row{
     width: 100%;

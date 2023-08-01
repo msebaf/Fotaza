@@ -732,8 +732,12 @@ function buscarPerfil(){
             const itemLista = document.createElement('div');
             itemLista.setAttribute('class', 'item-lista');
             listaResultados.appendChild(itemLista);
+            let foto = document.createElement('img');
+            foto.setAttribute('class', 'foto-perfil-busqueda');
+            foto.setAttribute('src', perfil.avatar);
+            itemLista.appendChild(foto);
             const enlace = document.createElement('a');
-            enlace.setAttribute('href', `/perfil/${perfil.id}`);
+            enlace.setAttribute('href', `/perfil/${perfil.usuarioId}`);
             enlace.textContent = perfil.nombreUsuario; // Aquí estableces el texto del enlace
             itemLista.appendChild(enlace);
 
@@ -821,10 +825,14 @@ function filtrarPorEtiqueta(foto){
      // console.log("foto")
       let esIgual=false;
       let etiquetas = foto.querySelectorAll('[id^="textEtiqueta"]')
+      let titulo = foto.querySelector("h3")
       etiquetas.forEach(etiqueta => {
         console.log("etiqueta probando")
         if(etiqueta.value.toLowerCase().includes(filtroEtiquetas.value.toLowerCase())){
           esIgual=true;
+        }
+        else if(titulo.textContent.toLowerCase().includes(filtroEtiquetas.value.toLowerCase())){
+          esIgual=true
         }
        
     })

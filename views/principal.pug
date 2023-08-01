@@ -21,12 +21,12 @@ block content
         option(value="Arte y Creatividad") Arte y Creatividad
         option(value="Retratos y Personas") Retratos y Personas
         option(value="Aventuras y Deportes") Aventuras y Deportes
-      input(type="text", name="", placeholder="Busca una etiquetas", id="filtroEtiquetas") 
+      input(type="text", name="", placeholder="Busca por palabra", id="filtroEtiquetas") 
       
 
     .div-cabecera(id= "chat-salir")
       if(autenticado)
-        a(href="/perfil/", id="linkPerfil") Mi Perfil
+        a(href=`/perfil/${usuarioId}`, id="linkPerfil") Mi Perfil
       .divChat
         if(autenticado)
           .imgChatCont

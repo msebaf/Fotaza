@@ -3,12 +3,57 @@ extends layout
 block content
 
     link(rel="stylesheet", href="/stylesheets/perfil.css")
+    
+    link(rel="stylesheet", href="/stylesheets/principal.css")
+    script(src="/javascripts/principal.js", defer) 
+    script(src="/javascripts/cargarImagen.js")
+    script(src="/javascripts/controlMensajes.js", defer)
+  
 
     .cabecera 
-        input(type="search", name="biscadorFotos", placeholder="Busca una foto", id="buscaFotos") 
-        .filtros 
-            h2 Mi Perfil
-        a(href="/principal/", id="linkPrincipal") Principal
+        .div-cabecera(id="buscador-perfil")
+            input(type="search", name="buscarUsuarios", placeholder="Busca un Usuario", id="buscaUsuario")
+        
+        .div-cabecera( id="filtroCategoria") 
+            select(name="filtro1", class="filtro" id="filtroCategoriaSelect")
+                option(value="Todos", selected) ---Elige una categoria---
+                option(value="Naturaleza y Paisajes") Naturaleza y Paisajes
+                option(value="Viajes y Turismo") Viajes y Turismo
+                option(value="Estilo de Vida y Cultura") Estilo de Vida y Cultura
+                option(value="Arte y Creatividad") Arte y Creatividad
+                option(value="Retratos y Personas") Retratos y Personas
+                option(value="Aventuras y Deportes") Aventuras y Deportes
+            input(type="text", name="", placeholder="Busca por palabra", id="filtroEtiquetas") 
+        
+
+        .div-cabecera(id= "chat-salir")
+     
+            a(href="/principal/", id="linkPerfil") Principal
+            .divChat
+                if(autenticado)
+                    .imgChatCont
+                        img(src="/icons/pngwing.com.png", alt="", id="imgChat")
+                    .cantMensajes(id="cantMensajesContenedor")
+                        p(id="canMensajes")
+            a(href="/", id="linkSalir") Salir
+
+    .listaPerfiles 
+        .div-lista(id="div-lista")
+            .paraBarra(id="paraBarra")
+            
+        
+        
+        .div-nada
+            input(type="checkbox" id="logeado", checked= autenticado, hidden)
+        
+
+        .div-mensajes
+            .div-lista(id="div-mensajes")
+            .paraBarra(id="paraBarraMensajes")
+        
+
+
+
 
     .container-perfil 
         img(src=perfilUsuario.avatar, alt="", class="img-perfil")
@@ -19,39 +64,115 @@ block content
             h4="Apellido: "+ perfilUsuario.apellido
         br
         h3 Intereses 
-        p= perfilUsuario.intereses
+        p(id="intereses")= perfilUsuario.intereses
 
         br
 
     
-        .container-fotos 
-            h2 Mis Fotos 
-            .container-fluid
-                
-                each imagen in imagenes
-                    br
-                    br
-                    .row
+        .container-fluid
+    
+            each imagen in imagenes
+                br
+                br
+                .row(id="foto-main-container" + imagen.id)
+                    input(type="text", id="textEtiqueta1", value=imagen.etiqueta1, hidden)
+                    input(type="text", id="textEtiqueta2", value=imagen.etiqueta2, hidden)
+                    input(type="text", id="textEtiqueta3", value=imagen.etiqueta3, hidden)
+                    .col-3
+                    
+                    .col-6(class="foto-cont")
                         h3= imagen.titulo
-                        .col-3
-                            | Contenido de la columna 1
-                        .col-6(class= "foto-cont")
-                            .row(class="datos-Row")
+                        .row(class="datos-Row")
+                            .col-12
+                                .datos
+                                    p= "Autor: " + imagen.autor
+                                    p(id="ranking"+imagen.id)= "Ranking: " + imagen.ranking
+                        .row(class="datos-Row") 
+                            .col-12
+                                .datos
+                                    p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
+                                    p(id="cantVotos"+imagen.id)= "votos: " + imagen.cantVotos
+                        .categoriaFoto(id="categoriaFoto"+imagen.id)
+                            p= imagen.categoria.categoria
+                        .etiquetasMostrar 
+                            if(imagen.etiqueta1 || imagen.etiqueta2 || imagen.etiqueta3)
+                                .etiquetaKeyword
+                                    p Keywords:
+                                .restoEtiquetas
+                                    if(imagen.etiqueta1)
+                                        .etiqueta1
+                                            p(id="Etiqueta1")= imagen.etiqueta1 + " "
+                                    if(imagen.etiqueta2)
+                                        .etiqueta2
+                                            p(id="Etiqueta2")= imagen.etiqueta2  + " "
+                                    if(imagen.etiqueta3)
+                                        .etiqueta3
+                                            p(id="Etiqueta3")= imagen.etiqueta3 + " " 
+                        img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id, onload=`watermarkImageWithText(${imagen.id}, ${autenticado}, ${imagen.privacidadId}, "${imagen.marcaAgua}")`)
+                        if(autenticado)
+                            .estrellasCont(id="estrellasCont" + imagen.id)
+                                if(imagen.votoUsuario == 1 || imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                                    .estrella1(class="estrellas estrellaSelected", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else 
+                                    .estrella1(class="estrellas", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                if (imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                                    .estrella2(class="estrellas estrellaSelected", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else if(imagen.votoUsuario == 0)
+                                    .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else
+                                    .estrella2(class="estrellas", onclick=`click2estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                if (imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                                    .estrella3(class="estrellas estrellaSelected", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else if(imagen.votoUsuario == 0)
+                                    .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else
+                                    .estrella3(class="estrellas", onclick=`click3estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                if (imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
+                                    .estrella4(class="estrellas estrellaSelected", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else if(imagen.votoUsuario == 0)
+                                    .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else
+                                    .estrella4(class="estrellas", onclick=`click4estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                if (imagen.votoUsuario == 5)
+                                    .estrella5(class="estrellas estrellaSelected", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else if(imagen.votoUsuario == 0)
+                                    .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                                else 
+                                    .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
+                                        img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+                            form(id="formulario-comentario"+imagen.id, action="", class="form-comentario")
+                                .agregar-comentario 
+                                    input(type="number", name="nfoto", value=imagen.id, hidden="true")
+                                    textarea(id="n-comentario"+imagen.id, name="comentario", class="form-control rounded", rows="2", placeholder="Escribe un comentario", maxlength="300")
+                                    button(id="btn-subir", onclick=`comentar(${imagen.id})`)
+                                        img(src="/icons/pngegg.png", alt="")
+                        .comentarios
+                            each comentario, index in imagen.comentarios.slice(0, 1)
+                        
+                                img(id="imgPrimerComentario"+imagen.id, class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
+                                p(id="primerComentario"+imagen.id)= comentario.comentario
+                        if(imagen.comentarios.length > 1)
+                            details(id="masComentarios"+imagen.id)
+                                summary Mas Comentarios
+                                each comentario, index in imagen.comentarios.slice(1, imagen.comentarios.length)
+                                    .comentarios
+                                        img(class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
+                                        p= comentario.comentario
+                    .col-3 
+                    
 
-                                .col-12
-                                    .datos
-                                        p= "Autor: " + imagen.autor
-                                        p= "imagen.ranking"
-                                
-                            .row(class="datos-Row") 
-                                
-                                .col-12
-                                    .datos
-                                        
-                                        p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
-                                        
-                                        p= "Hora: " + new Date(imagen.fechaCreacion).toLocaleTimeString()
-                                
-                            img(src="/"+imagen.ruta, alt="")
-                        .col-3 
-                            | Contenido de la columna 3
+                        
+            

@@ -369,3 +369,11 @@ details{
     width: 4vh;
     height: 4vh;
 }
+
+.item-lista:hover{
+    background-color: #dae9f3;
+}
+
+.foto-perfil-busqueda{
+    width: 4vh;
+    height: 4vh;}
