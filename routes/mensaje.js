@@ -186,4 +186,28 @@ router.get('/:id', async function(req, res, next) {
 
 
 
+router.post("/enviar/:id", async function (req, res, next) {
+  try {
+    
+    const nuevoMensaje = await mensaje.create({
+      texto: req.body.texto,
+      receptorId: req.params.id,
+      emisorId: req.session.usuarioId,
+      visto: false,
+      fechaHora: new Date(),
+    });
+
+
+    const respuesta = {
+      mensaje: nuevoMensaje,
+    };
+
+    res.json(respuesta);
+  } catch (error) {
+    let resp = "error al enviar el mensaje";
+    res.json(resp);
+  }
+});
+
+
 module.exports = router;

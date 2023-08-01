@@ -140,3 +140,6 @@ function chatOn(){
             console.log(data);
     })
   }
+
+
+  

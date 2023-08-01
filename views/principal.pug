@@ -48,7 +48,7 @@ block content
     .div-mensajes
       .div-lista(id="div-mensajes")
       .paraBarra(id="paraBarraMensajes")
-
+        
 
   .container-fluid
     if(autenticado)  
@@ -109,14 +109,17 @@ block content
             .col-12
               .datos
                 p= "Autor: " + imagen.autor
-                p(id="ranking"+imagen.id)= "Ranking: " + imagen.ranking
+                p= "Cat : "+imagen.categoria.categoria
+                p(id="cantVotos"+imagen.id)= "Votos: " + imagen.cantVotos
           .row(class="datos-Row") 
             .col-12
               .datos
-                p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()
-                p(id="cantVotos"+imagen.id)= "votos: " + imagen.cantVotos
-          .categoriaFoto(id="categoriaFoto"+imagen.id)
-            p= imagen.categoria.categoria
+                p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()                
+                p= "Licencia : " + imagen.licencia.licencia
+                p(id="Ranking"+imagen.id)= "Ranking: " + imagen.ranking
+                
+         
+            
           .etiquetasMostrar 
             if(imagen.etiqueta1 || imagen.etiqueta2 || imagen.etiqueta3)
               .etiquetaKeyword
@@ -131,6 +134,8 @@ block content
                 if(imagen.etiqueta3)
                   .etiqueta3
                     p(id="Etiqueta3")= imagen.etiqueta3 + " " 
+          if(autenticado)
+            button(onclick=`mensajearAutor(${imagen.autorId})`) enviale un mensaje al autor
           img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id, onload=`watermarkImageWithText(${imagen.id}, ${autenticado}, ${imagen.privacidadId}, "${imagen.marcaAgua}")`)
           p(id="comentario-autor-foto"+imagen.id, class="comentario-autor-foto")= imagen.comentarioAutor
           if(autenticado)

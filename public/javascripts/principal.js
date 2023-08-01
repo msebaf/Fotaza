@@ -3,9 +3,9 @@ var arrayClickeados = [];
 let usuarioLogeado = document.getElementById('logeado').checked ;
 
 function click1estrella(imagenId, controlVoto) {
-    console.log(imagenId)
-    console.log(controlVoto)
-    console.log(controlVoto==0)
+   // console.log(imagenId)
+  //  console.log(controlVoto)
+  //  console.log(controlVoto==0)
     if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
         let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
         arrayClickeados.push(imagenId);
@@ -18,7 +18,7 @@ function click1estrella(imagenId, controlVoto) {
         if (!response.ok) {
           throw new Error("La respuesta no es válida");
         }
-        console.log("Votación exitosa");
+       // console.log("Votación exitosa");
         
         
         controlVoto = 1;
@@ -55,8 +55,8 @@ function click1estrella(imagenId, controlVoto) {
             return response.json();
           })
           .then((data) => {
-            console.log("Promedio actualizado");
-            console.log("data:" + data);
+       //     console.log("Promedio actualizado");
+      //      console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
             document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
@@ -69,8 +69,8 @@ function click1estrella(imagenId, controlVoto) {
         console.error("Error al votar:", error);
       });
     }else{
-      console.log(controlVoto==0)
-      console.log(controlVoto)
+    //  console.log(controlVoto==0)
+    //  console.log(controlVoto)
       fetch(`/votos/update/${imagenId}/1`, {
         method: "PUT",
       })
@@ -79,7 +79,7 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
       
-          console.log("Votación exitosa");
+        //  console.log("Votación exitosa");
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
         const estrellas = estrellasCont.children;
       
@@ -126,9 +126,9 @@ function click1estrella(imagenId, controlVoto) {
   }
 
   function click2estrella(imagenId, controlVoto) {
-    console.log(imagenId);
-    console.log(controlVoto);
-    console.log(controlVoto === 0);
+  //  console.log(imagenId);
+  //  console.log(controlVoto);
+  //  console.log(controlVoto === 0);
   
     if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
       let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
@@ -141,7 +141,7 @@ function click1estrella(imagenId, controlVoto) {
           if (!response.ok) {
             throw new Error("La respuesta no es válida");
           }
-          console.log("Votación exitosa");
+       //   console.log("Votación exitosa");
           controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           estrellasCont.setAttribute('data-clickeado', 'true');
@@ -175,8 +175,8 @@ function click1estrella(imagenId, controlVoto) {
             return response.json();
           })
           .then((data) => {
-            console.log("Promedio actualizado");
-            console.log("data:" + data);
+        //    console.log("Promedio actualizado");
+        //    console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
             document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
@@ -189,8 +189,8 @@ function click1estrella(imagenId, controlVoto) {
           console.error("Error al votar:", error);
         });
     } else {
-      console.log(controlVoto === 0);
-      console.log(controlVoto);
+    //  console.log(controlVoto === 0);
+    //  console.log(controlVoto);
 
       fetch(`/votos/update/${imagenId}/2`, {
         method: "PUT",
@@ -200,7 +200,7 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
   
-          console.log("Votación exitosa");
+        //  console.log("Votación exitosa");
           controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
@@ -232,8 +232,8 @@ function click1estrella(imagenId, controlVoto) {
             return response.json();
           })
           .then((data) => {
-            console.log("Promedio actualizado");
-            console.log("data:" + data);
+          //  console.log("Promedio actualizado");
+         //   console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
             document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
@@ -249,9 +249,9 @@ function click1estrella(imagenId, controlVoto) {
   }
   
   function click3estrella(imagenId, controlVoto) {
-    console.log(imagenId);
-    console.log(controlVoto);
-    console.log(controlVoto === 0);
+   // console.log(imagenId);
+   // console.log(controlVoto);
+   // console.log(controlVoto === 0);
   
     if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
       let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
@@ -264,7 +264,7 @@ function click1estrella(imagenId, controlVoto) {
           if (!response.ok) {
             throw new Error("La respuesta no es válida");
           }
-          console.log("Votación exitosa");
+        //  console.log("Votación exitosa");
           controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
@@ -311,8 +311,8 @@ function click1estrella(imagenId, controlVoto) {
           console.error("Error al votar:", error);
         });
     } else {
-      console.log(controlVoto === 0);
-      console.log(controlVoto);
+    //  console.log(controlVoto === 0);
+     // console.log(controlVoto);
       fetch(`/votos/update/${imagenId}/3`, {
         method: "PUT",
       })
@@ -354,8 +354,8 @@ function click1estrella(imagenId, controlVoto) {
             return response.json();
           })
           .then((data) => {
-            console.log("Promedio actualizado");
-            console.log("data:" + data);
+           // console.log("Promedio actualizado");
+          //  console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
             document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
@@ -386,7 +386,7 @@ function click1estrella(imagenId, controlVoto) {
           if (!response.ok) {
             throw new Error("La respuesta no es válida");
           }
-          console.log("Votación exitosa");
+         // console.log("Votación exitosa");
           controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
@@ -434,8 +434,8 @@ function click1estrella(imagenId, controlVoto) {
           console.error("Error al votar:", error);
         });
     } else {
-      console.log(controlVoto === 0);
-      console.log(controlVoto);
+    //  console.log(controlVoto === 0);
+    //  console.log(controlVoto);
       fetch(`/votos/update/${imagenId}/4`, {
         method: "PUT",
       })
@@ -444,7 +444,7 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
   
-          console.log("Votación exitosa");
+         // console.log("Votación exitosa");
           controlVoto = 1;
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
@@ -495,9 +495,9 @@ function click1estrella(imagenId, controlVoto) {
   }
   
   function click5estrella(imagenId, controlVoto) {
-    console.log(imagenId);
-    console.log(controlVoto);
-    console.log(controlVoto === 0);
+    //console.log(imagenId);
+   // console.log(controlVoto);
+   // console.log(controlVoto === 0);
   
     if(controlVoto==0 && !arrayClickeados.includes(imagenId)){
       let cvotos= document.getElementById("cantVotos" + imagenId).innerHTML;
@@ -545,8 +545,8 @@ function click1estrella(imagenId, controlVoto) {
             return response.json();
           })
           .then((data) => {
-            console.log("Promedio actualizado");
-            console.log("data:" + data);
+          //  console.log("Promedio actualizado");
+           // console.log("data:" + data);
             document.getElementById("ranking" + imagenId).innerHTML = data.promedio;
             document.getElementById("cantVotos" + imagenId).innerHTML = data.cantVotos;
           })
@@ -559,8 +559,8 @@ function click1estrella(imagenId, controlVoto) {
           console.error("Error al votar:", error);
         });
     } else {
-      console.log(controlVoto === 0);
-      console.log(controlVoto);
+    //  console.log(controlVoto === 0);
+    //  console.log(controlVoto);
       fetch(`/votos/update/${imagenId}/5`, {
         method: "PUT",
       })
@@ -569,7 +569,7 @@ function click1estrella(imagenId, controlVoto) {
             throw new Error("La respuesta no es válida");
           }
   
-          console.log("Votación exitosa");
+        //  console.log("Votación exitosa");
           const estrellasCont = document.getElementById("estrellasCont" + imagenId);
           const estrellas = estrellasCont.children;
   
@@ -635,7 +635,7 @@ function click1estrella(imagenId, controlVoto) {
           if (!response.ok) {
             throw new Error("La respuesta no es válida");
           }
-          console.log("Comentario enviado");
+        //  console.log("Comentario enviado");
           fetch(`/comentarios/listar/${fotoId}`).then((response) => {
             if (!response.ok) {
               throw new Error("La respuesta no es válida");
@@ -643,7 +643,7 @@ function click1estrella(imagenId, controlVoto) {
             return response.json();
           })
           .then((data) => {
-            console.log("Los datos:" + data);
+         //   console.log("Los datos:" + data);
             const comentarios = JSON.parse(data);
 
             console.log("Datos de comentarios:", comentarios)
@@ -690,7 +690,7 @@ function click1estrella(imagenId, controlVoto) {
   
 //mostrar vista previa de la foto
   function mostrarVistaPrevia() {
-    console.log("Cambio")
+  //  console.log("Cambio")
     const archivo = document.getElementById('foto').files[0];
     if (archivo) {
       const lector = new FileReader();
@@ -716,14 +716,14 @@ inputBusqueda.addEventListener('input', buscarPerfil)
 
 function buscarPerfil(){
   const query = inputBusqueda.value;
-    console.log(query);
+  //  console.log(query);
     if (query.length > 0) {
       // Enviar una solicitud AJAX al servidor con la consulta de búsqueda
       fetch(`/perfil/buscar/:${query}`)
         .then(response => response.json())
         .then(data => {
-          console.log("---------data-----------")
-          console.log(data);
+      //    console.log("---------data-----------")
+      //    console.log(data);
           // Limpiar los resultados anteriores
           listaResultados.innerHTML = '';
 
@@ -776,7 +776,7 @@ function filtrarFotos(){
           console.log("ocultar")
         }else{
           foto.style.display = "flex"
-          console.log("mostrar")
+        //  console.log("mostrar")
         }
       })
   
@@ -787,7 +787,7 @@ function filtrarFotos(){
 
 function filtrarPorCategoria(foto){
 
-  console.log("funcion activada")
+ // console.log("funcion activada")
   let filtroCategoria =  document.getElementById("filtroCategoriaSelect");
    
    
@@ -796,8 +796,8 @@ function filtrarPorCategoria(foto){
 
       console.log("foto")
       let categoria = foto.querySelector('[id^="categoriaFoto"]');
-      console.log("-------------------------------------------")
-      console.log(categoria.innerText)
+   //   console.log("-------------------------------------------")
+   //   console.log(categoria.innerText)
       if(categoria.innerText ==filtroCategoria.value){
         return true;
       }else{
@@ -814,20 +814,20 @@ function filtrarPorCategoria(foto){
 function filtrarPorEtiqueta(foto){
   let filtroEtiquetas =  document.getElementById("filtroEtiquetas");
   if(filtroEtiquetas.value == ""){
-    console.log("probando filtro letras valor nulo")
+   // console.log("probando filtro letras valor nulo")
      
       return true
   }else{
   
   
-    console.log("probando filtro letras valor no nulo ")
+  //  console.log("probando filtro letras valor no nulo ")
     
      // console.log("foto")
       let esIgual=false;
       let etiquetas = foto.querySelectorAll('[id^="textEtiqueta"]')
       let titulo = foto.querySelector("h3")
       etiquetas.forEach(etiqueta => {
-        console.log("etiqueta probando")
+      //  console.log("etiqueta probando")
         if(etiqueta.value.toLowerCase().includes(filtroEtiquetas.value.toLowerCase())){
           esIgual=true;
         }
@@ -847,7 +847,7 @@ try{
 let licencia = document.getElementById("licencia");
 licencia.addEventListener("change", ajustarPrivacidad);
 }catch(e){
-  console.log("no aplica")
+ // console.log("no aplica")
 }
 
 function ajustarPrivacidad(){
@@ -880,15 +880,15 @@ function cargarChats(){
     fetch(`/mensaje/chats`)
       .then(response => response.json())
       .then(data => {
-        console.log("---------data-----------")
-        console.log(data);
+      //  console.log("---------data-----------")
+      //  console.log(data);
         // Limpiar los resultados anteriores
         listaChats.innerHTML = '';
 
         // Mostrar los resultados de la búsqueda
         data.forEach(mensaje => {
-          console.log("--------------perfil----------------")
-          console.log(mensaje)
+        //  console.log("--------------perfil----------------")
+        //  console.log(mensaje)
           let itemLista = document.createElement('div');
           itemLista.setAttribute('class', 'item-lista');
           listaChats.appendChild(itemLista);
@@ -922,15 +922,15 @@ function retornarChats(){
     fetch(`/mensaje/chats`)
       .then(response => response.json())
       .then(data => {
-        console.log("---------data-----------")
-        console.log(data);
+      //  console.log("---------data-----------")
+    //    console.log(data);
         // Limpiar los resultados anteriores
         listaChats.innerHTML = '';
 
         // Mostrar los resultados de la búsqueda
         data.forEach(mensaje => {
-          console.log("--------------perfil----------------")
-          console.log(mensaje)
+        //  console.log("--------------perfil----------------")
+        //  console.log(mensaje)
           let itemLista = document.createElement('div');
           itemLista.setAttribute('class', 'item-lista');
           listaChats.appendChild(itemLista);
@@ -970,24 +970,23 @@ function cargaChat(id){
   fetch(`/mensaje/${id}`)
       .then(response => response.json())
       .then(data => {
-        console.log("---------data-----------")
-        console.log(data);
+       // console.log("---------data-----------")
+       // console.log(data);
         // Limpiar los resultados anteriores
        
 
         // Mostrar los resultados de la búsqueda
         data.forEach(mensaje => {
-          console.log("--------------perfil----------------")
-          console.log(mensaje.perfil
-            )
+        //  console.log("--------------perfil----------------")
+          //console.log(mensaje.perfil)
           let itemLista = document.createElement('div');
-          console.log("usuario id")
-          console.log(mensaje.perfil.usuarioId)
+        //  console.log("usuario id")
+        //  console.log(mensaje.perfil.usuarioId)
           if(mensaje.emisorId != id){
-            console.log(mensaje.emisorId == id)
-            console.log(mensaje.emisorId)
-            console.log(id)
-            console.log(mensaje.receptorId)
+          //  console.log(mensaje.emisorId == id)
+         //   console.log(mensaje.emisorId)
+        //    console.log(id)
+       //     console.log(mensaje.receptorId)
           itemLista.setAttribute('class', 'item-lista-uno');
           listaChats.appendChild(itemLista);
           
@@ -998,10 +997,11 @@ function cargaChat(id){
           let nombre = document.createElement('p');
           nombre.textContent = mensaje.texto;
           itemLista.appendChild(nombre);
+
           }else{
-         console.log(mensaje.emisorId)
-         console.log(id)
-         console.log(mensaje.receptorId)
+        // console.log(mensaje.emisorId)
+        // console.log(id)
+       //  console.log(mensaje.receptorId)
           itemLista.setAttribute('class', 'item-lista-otro');
           listaChats.appendChild(itemLista);
           
@@ -1016,7 +1016,8 @@ function cargaChat(id){
           
            
           }
-          
+
+         
 
         });
       })
@@ -1024,6 +1025,22 @@ function cargaChat(id){
         console.error('Error en la búsqueda:', error);
       });
   
+      let campoMensajes = document.createElement('div');
+      campoMensajes.setAttribute("class", "campoMensajes");
+     
+      listaChats.appendChild(campoMensajes);
+      let campoTexto = document.createElement('textarea');
+      campoTexto.setAttribute("rows", "2");
+      campoTexto.setAttribute("placeholder", "Escribe tu mensaje")
+      campoTexto.setAttribute("id", "campoMensajes");
+      campoTexto.setAttribute("style", "width: 100%;");
+      
+      campoMensajes.appendChild(campoTexto);
+      let botonEnviar = document.createElement('button');
+      botonEnviar.setAttribute("onclick", `enviarMensaje(${id})`);
+      botonEnviar.setAttribute("style", "width: 100%;");
+      botonEnviar.textContent = "Enviar";
+      campoMensajes.appendChild(botonEnviar);
 
 }
 
@@ -1036,7 +1053,7 @@ function cargaChat(id){
   
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message); // Debería imprimir "Mensaje marcado como visto"
+       // console.log(data.message); 
       } else {
         console.error('Error al marcar mensaje como visto:', response.status, response.statusText);
       }
@@ -1047,4 +1064,36 @@ function cargaChat(id){
   
 }
 
+
+
+
+
+
+function enviarMensaje(id) {
+  console.log("-------------------------------------POST--------------------------------------------------");
+  const textoMensaje = document.getElementById("campoMensajes").value; // Aquí deberías obtener el texto del mensaje desde algún lugar en el cliente
+  console.log("mensaje"+ textoMensaje)
+  fetch(`/mensaje/enviar/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json' // Especificamos que el contenido es JSON
+    },
+    body: JSON.stringify({ texto: textoMensaje }) // Aquí enviamos los datos en formato JSON
+  })
+    .then(response => response.json())
+    .then(data => {
+      
+      cargaChat(data.mensaje.receptorId);
+    })
+    .catch(error => {
+      console.error("Error al enviar el mensaje:", error);
+    });
+
+  document.getElementById("campoMensajes").value = "";
+}
+}
+
+function mensajearAutor(id){
+  console.log("click mensaje")
+  cargaChat(id)
 }

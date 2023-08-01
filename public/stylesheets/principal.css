@@ -41,7 +41,7 @@ p {
     position: fixed;
     top: 5vh;
     width: 100%;
-    height: 30vh;
+    height: 40vh;
  
 
 }
@@ -110,6 +110,7 @@ p {
     display: flex;
     flex-direction: row;
     justify-content: end;
+    
     
   }
 
@@ -382,4 +383,12 @@ details{
     border: gainsboro solid 1px;
     width: 100%;
     border-radius: 10px;
+}
+
+.campoMensaje{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    
 }
