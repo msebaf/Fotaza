@@ -622,10 +622,12 @@ function click1estrella(imagenId, controlVoto) {
 
   function comentar(fotoId) {
     const formulario = document.getElementById("formulario-comentario"+fotoId);
-    formulario.addEventListener("submit", (event) => {
-      event.preventDefault();
-  
-      const formData = new URLSearchParams(new FormData(formulario));
+    let coment = document.getElementById("n-comentario"+fotoId).value;
+
+    const formData = new URLSearchParams();
+  formData.append("nfoto", fotoId);
+  formData.append("comentario", coment);
+   
   
       fetch("/comentarios/comentar", {
         method: "POST",
@@ -645,19 +647,41 @@ function click1estrella(imagenId, controlVoto) {
           .then((data) => {
          //   console.log("Los datos:" + data);
             const comentarios = JSON.parse(data);
-
+            let divComent = document.getElementById("pcomentarios"+fotoId)
+            let masComentarios;
             console.log("Datos de comentarios:", comentarios)
+            if(document.getElementById("primerComentario" + fotoId)){
             document.getElementById("primerComentario" + fotoId).innerText = comentarios[0].comentario;
            
             document.getElementById("imgPrimerComentario" + fotoId).src = comentarios[0].perfil.avatar;
+            }
+            else{
+            
+             let primerFoto= document.createElement("img");
+             primerFoto.setAttribute("id", "imgPrimerComentario"+fotoId);
+             primerFoto.setAttribute("class", "img-perfil-comentario");
+             primerFoto.setAttribute("src", comentarios[0].perfil.avatar);
+             divComent.appendChild(primerFoto);
+             let primerComent = document.createElement("p");
+             primerComent.setAttribute("id", "primerComentario"+fotoId);
+             divComent.appendChild(primerComent);
+             primerComent.innerText = comentarios[0].comentario;
+            }
             if(comentarios.length>1){
-            comentarios.shift();
-            let masComentarios = document.getElementById("masComentarios" + fotoId);
+            //comentarios.shift();
+            if(document.getElementById("masComentarios" + fotoId)){
+            masComentarios = document.getElementById("masComentarios" + fotoId);
             masComentarios.innerHTML = '';
+            }
+            else{
+              let masComentarios = document.createElement("details");
+              masComentarios.setAttribute("id", "masComentarios" + fotoId);
+              divComent.appendChild(masComentarios);
+            }
             let summary = document.createElement("summary");
             summary.innerText = "Mas Comentarios";
             masComentarios.appendChild(summary);
-            for(let i=0;i<comentarios.length;i++){
+            for(let i=1;i<comentarios.length;i++){
               let div = document.createElement("div");
               div.setAttribute("class", "comentarios");
               masComentarios.appendChild(div);
@@ -680,7 +704,8 @@ function click1estrella(imagenId, controlVoto) {
         .catch((error) => {
           console.error("Error al enviar el comentario:", error);
         });
-    });
+    
+    
   }
   
   

@@ -116,7 +116,7 @@ block content
               .datos
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()                
                 p= "Licencia : " + imagen.licencia.licencia
-                p(id="Ranking"+imagen.id)= "Ranking: " + imagen.ranking
+                p(id="ranking"+imagen.id)= "Ranking: " + imagen.ranking
                 
          
             
@@ -186,9 +186,9 @@ block content
               .agregar-comentario 
                 input(type="number", name="nfoto", value=imagen.id, hidden="true")
                 textarea(id="n-comentario"+imagen.id, name="comentario", class="form-control rounded", rows="2", placeholder="Escribe un comentario", maxlength="300")
-                button(id="btn-subir", onclick=`comentar(${imagen.id})`)
+                button(id="btn-subir", type="button",  onclick=`comentar(${imagen.id})`)
                   img(src="/icons/pngegg.png", alt="")
-          .comentarios
+          .comentarios(id="pcomentarios"+imagen.id)
             each comentario, index in imagen.comentarios.slice(0, 1)
               
               img(id="imgPrimerComentario"+imagen.id, class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
