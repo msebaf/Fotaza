@@ -1,20 +1,20 @@
 extends layout
 
 block content
-  link(rel="stylesheet", href="stylesheets/index.css")
+  link(rel="stylesheet", href="stylesheets/index.css", defer)
 
   .container
     .content-container
       .photosUp
-        img(src="images/ej1.jpg", class="photo photo1")
-        img(src="images/ej2.jpg", class="photo photo2")
-        img(src="images/ej3.jpg", class="photo photo3")
+        img(src=otrasTresImagenes[0].ruta, class="photo photo1")
+        img(src=imagenesPrincipales[0].ruta, class="photo photo2", id="fotoOro")
+        img(src=otrasTresImagenes[1].ruta, class="photo photo3", id="fotoComun3")
       .fotaza
         img(src="images/fotaza.png", class="fotazaImg")
       .photosBottom
-        img(src="images/ej4.jpg", class="photo photo4")
-        img(src="images/ej5.jpg", class="photo photo5")
-        img(src="images/ej6.jpg", class="photo photo6")
+        img(src=imagenesPrincipales[1].ruta, class="photo photo4", id="fotoPlata")
+        img(src=otrasTresImagenes[2].ruta, class="photo photo5")
+        img(src=imagenesPrincipales[2].ruta, class="photo photo6", id="fotoBronce")
 
     .form-container
       h2 Login

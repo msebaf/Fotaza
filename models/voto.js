@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     voto: {
       type:DataTypes.INTEGER,
       allowNull: false
+    },
+    fechaVoto:{
+      type:DataTypes.DATE,
+      allowNull: false
     }
   }, {
     sequelize,

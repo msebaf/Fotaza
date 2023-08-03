@@ -153,3 +153,23 @@ body{
   #btnInvitado{
     margin-top: 30px;
   }
+
+  #fotoOro{
+    border: 7px solid gold ;
+    
+  }
+
+  #fotoPlata{
+    border: 7px solid silver ;
+    margin-right: 20px;
+  }
+
+  #fotoBronce{
+    border: 7px solid 	#CD7F32 ;
+    margin-left: 25px;
+  }
+
+  #fotoComun3{
+    
+    margin-right: 25px;
+  }

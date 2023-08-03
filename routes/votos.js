@@ -16,7 +16,8 @@ router.post("/votar/:fotoid/:voto", async (req,res)=>{
   const nVoto = await voto.create({
       usuarioId: req.session.usuarioId,
       fotoId: req.params.fotoid, 
-      voto: req.params.voto
+      voto: req.params.voto,
+      fechaVoto: new Date()
       
     
   })
@@ -27,7 +28,9 @@ router.post("/votar/:fotoid/:voto", async (req,res)=>{
 router.put("/update/:fotoid/:voto", async (req, res) => {
   try {
     const actVoto = await voto.update(
-      { voto: req.params.voto },
+      { voto: req.params.voto,
+        fechaVoto: new Date()
+      },
       {
         where: {
           fotoId: req.params.fotoid,
