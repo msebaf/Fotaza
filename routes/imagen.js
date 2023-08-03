@@ -58,7 +58,8 @@ router.post("/publicar", async (req, res) => {
       resolucion: null,
       ruta: rutaImagen,
       marcaAgua:marcaAgua,
-      comentarioAutor: comentarioAutor
+      comentarioAutor: comentarioAutor,
+      eliminada: false
     });
     if(newImagen){
     res.redirect("/principal");
@@ -86,4 +87,30 @@ router.post("/fotoPerfil", async (req, res) => {
   const rutaImagen = "/avatares/" + nombreImagen;
   return res.send(rutaImagen);
 });
+
+
+router.put("/eliminarImagen/:id", async (req, res) => {
+  const imagenId = req.params.id;
+
+  try {
+    
+    const imagenExistente = await imagen.findByPk(imagenId);
+
+    if (!imagenExistente) {
+      return res.status(404).json({ error: "La imagen no existe." });
+    }
+
+   
+    imagenExistente.eliminada = true;
+
+   
+    await imagenExistente.save();
+
+    return res.status(200).json({ message: "La imagen se ha marcado como eliminada." });
+  } catch (error) {
+    console.error("Error al eliminar la imagen:", error);
+    return res.status(500).json({ error: "Error al eliminar la imagen." });
+  }
+});
+
 module.exports = router;

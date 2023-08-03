@@ -96,6 +96,10 @@ module.exports = (sequelize, DataTypes) => {
     comentarioAutor:{
       type:DataTypes.STRING,
       allowNull: true
+    },
+    eliminada:{
+      type:DataTypes.BOOLEAN,
+      allowNull: false
     }
 
   }, {

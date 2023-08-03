@@ -1269,3 +1269,17 @@ function mostrarVistaPreviaPerfil() {
   }
 
   
+  function eliminarImagen(fotoId) {
+    console.log("click eliminar");
+    fetch(`/imagen/eliminarImagen/${fotoId}`, {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        document.getElementById("foto-main-container"+fotoId).remove();
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud:", error);
+      });
+  }

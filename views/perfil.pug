@@ -31,11 +31,11 @@ block content
      
             a(href="/principal/", id="linkPerfil") Principal
             .divChat
-                if(autenticado)
-                    .imgChatCont
-                        img(src="/icons/pngwing.com.png", alt="", id="imgChat")
-                    .cantMensajes(id="cantMensajesContenedor")
-                        p(id="canMensajes")
+                
+                .imgChatCont
+                    img(src="/icons/pngwing.com.png", alt="", id="imgChat")
+                .cantMensajes(id="cantMensajesContenedor")
+                    p(id="canMensajes")
             a(href="/", id="linkSalir") Salir
 
     .listaPerfiles 
@@ -72,7 +72,8 @@ block content
         p(id="intereses")= perfilUsuario.intereses
         textarea(name="", cols="30", rows="10", id="nuevosIntereses") 
         button(type="button", id="guardarEdicion") Guardar
-        button(type="button", id="editor") Modo Edicion
+        if(autenticado && perfilUsuario.usuarioId == usuarioId)
+            button(type="button", id="editor") Modo Edicion
 
         br
 
@@ -96,6 +97,8 @@ block content
                             p= imagen.categoria.categoria
                             .datos(class="datosSup")
                                 p= "Autor: " + imagen.autor
+                                if(autenticado && perfilUsuario.usuarioId == usuarioId)
+                                    button(type="button", id="botonEliminar"+imagen.id, onclick=`eliminarImagen(${imagen.id})`) Eliminar
                                 
                                 p(id="cantVotos"+imagen.id)= "Votos: " + imagen.cantVotos
                     .row(class="datos-Row") 

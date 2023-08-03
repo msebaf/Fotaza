@@ -39,7 +39,9 @@ router.get('/:id', async function(req, res, next) {
     autenticado=true;
    imagenes = await imagen.findAll({
     where: {
-      autorId: req.params.id
+      autorId: req.params.id,
+      eliminada: false
+
     },
     order: [['fechaCreacion', 'DESC']],
     include: [
@@ -76,7 +78,8 @@ router.get('/:id', async function(req, res, next) {
   imagenes = await imagen.findAll({
     where: {
       licenciaId: 3,
-      autorId: req.params.id
+      autorId: req.params.id,
+      eliminada: false
     },
     order: [['fechaCreacion', 'DESC']],
     include: [
