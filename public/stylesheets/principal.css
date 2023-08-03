@@ -41,25 +41,30 @@ p {
     position: fixed;
     top: 5vh;
     width: 100%;
-    height: 40vh;
+    max-height: 10vh;
  
 
 }
 
 .div-lista{
     width: 20%;
-    height: inherit;
+    height: 50vh;
 }
 
 .div-nada{
     width: 20%;
-    height: inherit;
+    height: fit-content;
 }
 
 .div-mensajes{
     display: flex;
     width: 20%;
-    height: inherit;
+    height: 50vh;
+}
+
+#campoMensajes{
+    display: flex;
+    flex-direction: column;
 }
 .paraBarra{
     width: 75%;

@@ -621,93 +621,111 @@ function click1estrella(imagenId, controlVoto) {
   
 
   function comentar(fotoId) {
-    const formulario = document.getElementById("formulario-comentario"+fotoId);
-    let coment = document.getElementById("n-comentario"+fotoId).value;
-
-    const formData = new URLSearchParams();
-  formData.append("nfoto", fotoId);
-  formData.append("comentario", coment);
-   
+    let pcontenedor = document.getElementById("fotoCont" + fotoId);
+    const formulario = document.getElementById("formulario-comentario" + fotoId);
+    let coment = document.getElementById("n-comentario" + fotoId).value;
   
-      fetch("/comentarios/comentar", {
-        method: "POST",
-        body: formData,
+    const formData = new URLSearchParams();
+    formData.append("nfoto", fotoId);
+    formData.append("comentario", coment);
+  
+    fetch("/comentarios/comentar", {
+      method: "POST",
+      body: formData,
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("La respuesta no es válida");
+      }
+  
+      fetch(`/comentarios/listar/${fotoId}`).then((response) => {
+        if (!response.ok) {
+          throw new Error("La respuesta no es válida");
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("La respuesta no es válida");
-          }
-        //  console.log("Comentario enviado");
-          fetch(`/comentarios/listar/${fotoId}`).then((response) => {
-            if (!response.ok) {
-              throw new Error("La respuesta no es válida");
-            }
-            return response.json();
-          })
-          .then((data) => {
-         //   console.log("Los datos:" + data);
-            const comentarios = JSON.parse(data);
-            let divComent = document.getElementById("pcomentarios"+fotoId)
-            let masComentarios;
-            console.log("Datos de comentarios:", comentarios)
-            if(document.getElementById("primerComentario" + fotoId)){
-            document.getElementById("primerComentario" + fotoId).innerText = comentarios[0].comentario;
-           
-            document.getElementById("imgPrimerComentario" + fotoId).src = comentarios[0].perfil.avatar;
-            }
-            else{
-            
-             let primerFoto= document.createElement("img");
-             primerFoto.setAttribute("id", "imgPrimerComentario"+fotoId);
-             primerFoto.setAttribute("class", "img-perfil-comentario");
-             primerFoto.setAttribute("src", comentarios[0].perfil.avatar);
-             divComent.appendChild(primerFoto);
-             let primerComent = document.createElement("p");
-             primerComent.setAttribute("id", "primerComentario"+fotoId);
-             divComent.appendChild(primerComent);
-             primerComent.innerText = comentarios[0].comentario;
-            }
-            if(comentarios.length>1){
-            //comentarios.shift();
-            if(document.getElementById("masComentarios" + fotoId)){
-            masComentarios = document.getElementById("masComentarios" + fotoId);
-            masComentarios.innerHTML = '';
-            }
-            else{
-              let masComentarios = document.createElement("details");
-              masComentarios.setAttribute("id", "masComentarios" + fotoId);
-              divComent.appendChild(masComentarios);
-            }
-            let summary = document.createElement("summary");
-            summary.innerText = "Mas Comentarios";
-            masComentarios.appendChild(summary);
-            for(let i=1;i<comentarios.length;i++){
-              let div = document.createElement("div");
-              div.setAttribute("class", "comentarios");
-              masComentarios.appendChild(div);
-              let img = document.createElement("img");
-              img.setAttribute("class", "img-perfil-comentario");
-              img.setAttribute("src", comentarios[i].perfil.avatar);
-              div.appendChild(img);
-              let p = document.createElement("p");
-              p.innerText = comentarios[i].comentario;
-              div.appendChild(p);
-
-
-            }
-          }
-
-            
-          })
-        })
+      .then((data) => {
+        const comentarios = JSON.parse(data);
+        let pContenedor = document.getElementById("fotoCont" + fotoId);
+        let divComent = document.getElementById("pcomentarios" + fotoId);
+        let masComentarios = document.getElementById("masComentarios" + fotoId);
         
-        .catch((error) => {
-          console.error("Error al enviar el comentario:", error);
-        });
-    
-    
+        // Mostrar el primer comentario
+        if (document.getElementById("primerComentario" + fotoId)) {
+          document.getElementById("primerComentario" + fotoId).innerText = comentarios[0].comentario;
+          document.getElementById("imgPrimerComentario" + fotoId).src = comentarios[0].perfil.avatar;
+        } else {
+          let primerFoto = document.createElement("img");
+          primerFoto.setAttribute("id", "imgPrimerComentario" + fotoId);
+          primerFoto.setAttribute("class", "img-perfil-comentario");
+          primerFoto.setAttribute("src", comentarios[0].perfil.avatar);
+          divComent.appendChild(primerFoto);
+  
+          let primerComent = document.createElement("p");
+          primerComent.setAttribute("id", "primerComentario" + fotoId);
+          divComent.appendChild(primerComent);
+          primerComent.innerText = comentarios[0].comentario;
+        }
+  
+        // Crear o actualizar el elemento "details" según sea necesario
+        let isMasComentariosOpen = masComentarios ? masComentarios.open : false; // Verificar si está abierto
+  
+        if (!masComentarios && comentarios.length>=2) {
+          // Crear el elemento "details" solo si no existe
+          masComentarios = document.createElement("details");
+          masComentarios.setAttribute("id", "masComentarios" + fotoId);
+          pContenedor.appendChild(masComentarios);
+        }
+  
+        // Establecer el atributo "open" según el estado deseado antes de modificar el contenido
+        if(comentarios.length>=2){
+        masComentarios.open = isMasComentariosOpen;
+        }
+  
+        // Crear el elemento "summary" solo si no existe
+        if(masComentarios){
+        if (!document.getElementById("summary" + fotoId)) {
+          let summary = document.createElement("summary");
+          summary.setAttribute("id", "summary" + fotoId);
+          summary.innerText = "Mas Comentarios";
+          masComentarios.appendChild(summary);
+        }
+      }
+  
+        // Código para agregar los comentarios anteriores y los nuevos comentarios
+        if(masComentarios){
+        let comentariosExistentes = masComentarios.getElementsByClassName("comentarios");
+        while (comentariosExistentes.length > 0) {
+          comentariosExistentes[0].remove();
+        }
+      }
+  
+        for (let i = 1; i < comentarios.length; i++) {
+          let div = document.createElement("div");
+          div.setAttribute("class", "comentarios");
+          masComentarios.appendChild(div);
+          let img = document.createElement("img");
+          img.setAttribute("class", "img-perfil-comentario");
+          img.setAttribute("src", comentarios[i].perfil.avatar);
+          div.appendChild(img);
+          let p = document.createElement("p");
+          p.innerText = comentarios[i].comentario;
+          div.appendChild(p);
+        }
+  
+        // Restablecer el atributo "open" después de modificar el contenido
+        if(masComentarios){
+        masComentarios.open = isMasComentariosOpen;
+        }
+        document.getElementById("n-comentario" + fotoId).value="";
+      })
+    })
+    .catch((error) => {
+      console.error("Error al enviar el comentario:", error);
+    });
   }
   
+
   
 
 

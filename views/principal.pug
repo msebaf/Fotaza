@@ -103,7 +103,7 @@ block content
         input(type="text", id="textEtiqueta3", value=imagen.etiqueta3, hidden)
         .col-3
           
-        .col-6(class="foto-cont")
+        .col-6(class="foto-cont", id="fotoCont"+imagen.id)
           h3= imagen.titulo
           .row(class="datos-Row")
             .col-12
@@ -195,7 +195,7 @@ block content
               p(id="primerComentario"+imagen.id)= comentario.comentario
           if(imagen.comentarios.length > 1)
             details(id="masComentarios"+imagen.id)
-              summary Mas Comentarios
+              summary(id="summary"+imagen.id) Mas Comentarios
               each comentario, index in imagen.comentarios.slice(1, imagen.comentarios.length)
                 .comentarios
                   img(class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
