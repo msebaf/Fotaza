@@ -8,6 +8,7 @@ block content
     script(src="/javascripts/principal.js", defer) 
     script(src="/javascripts/cargarImagen.js")
     script(src="/javascripts/controlMensajes.js", defer)
+   
   
 
     .cabecera 
@@ -56,15 +57,22 @@ block content
 
 
     .container-perfil 
-        img(src=perfilUsuario.avatar, alt="", class="img-perfil")
+        img(src=perfilUsuario.avatar, alt="", class="img-perfil", id="imgPerfil")
+        input(type="file", name="foto", id="nuevaFotoPerfil")
         h2= perfilUsuario.nombreUsuario
         br
         .datos-personales 
             h4="Nombre: " + perfilUsuario.nombre
             h4="Apellido: "+ perfilUsuario.apellido
+        .datos-personales 
+            input(type="text", id="nuevoNombre", placeholder="Nombre")
+            input(type="text", id="nuevoApellido", placeholder="apellido")
         br
         h4 Intereses 
         p(id="intereses")= perfilUsuario.intereses
+        textarea(name="", cols="30", rows="10", id="nuevosIntereses") 
+        button(type="button", id="guardarEdicion") Guardar
+        button(type="button", id="editor") Modo Edicion
 
         br
 
@@ -179,6 +187,12 @@ block content
                                     p= comentario.comentario
                 .col-3 
                 
+        br
+        br
+
+        hr(class="separador")
+            
+        br
 
                         
             

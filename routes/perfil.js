@@ -189,4 +189,38 @@ router.get('/buscar/:perfil', async function(req, res, next) {
   }
 });
 
+router.post('/editar', async function(req, res, next) {
+  try {
+    const { nombre, apellido, intereses, imagenPerfil } = req.body;
+
+    
+    const perfilExistente = await perfil.findOne({ where: { usuarioId: req.session.usuarioId } }); 
+
+    
+    if (nombre) {
+      perfilExistente.nombre = nombre;
+    }
+
+    if (apellido) {
+      perfilExistente.apellido = apellido;
+    }
+
+    if (intereses) {
+      perfilExistente.intereses = intereses;
+    }
+
+    if (imagenPerfil) {
+      perfilExistente.avatar = imagenPerfil;
+    }
+
+    // Guardar los cambios en la base de datos
+    await perfilExistente.save();
+
+    return res.status(200).json({ message: "Perfil editado correctamente." });
+  } catch (error) {
+    console.error("Error al editar el perfil:", error);
+    return res.status(500).json({ error: "Error al editar el perfil." });
+  }
+});
+
 module.exports = router;

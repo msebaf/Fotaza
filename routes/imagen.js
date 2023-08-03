@@ -75,4 +75,15 @@ router.post("/publicar", async (req, res) => {
     
   }
 })
+
+router.post("/fotoPerfil", async (req, res) => {
+  const { foto } = req.files;
+
+  const ext = foto.name.split(".").pop(); // Obtenemos la extensión del archivo
+  let nombreImagen = "perfil" + req.session.usuarioId + "." + ext;
+
+  foto.mv("public/avatares/" + nombreImagen);
+  const rutaImagen = "/avatares/" + nombreImagen;
+  return res.send(rutaImagen);
+});
 module.exports = router;

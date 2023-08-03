@@ -104,7 +104,7 @@ block content
         .col-3
           
         .col-6(class="foto-cont", id="fotoCont"+imagen.id)
-          h3= imagen.titulo
+          h3(class="titulo")= imagen.titulo
           .row(class="datos-Row")
             .col-12
               p= imagen.categoria.categoria
@@ -203,7 +203,12 @@ block content
                   img(class="img-perfil-comentario", src=comentario.perfil.avatar, alt="")
                   p= comentario.comentario
         .col-3 
-          
+      br
+      br
+
+      hr(class="separador")
+        
+      br
 
             
  

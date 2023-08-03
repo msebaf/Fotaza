@@ -1140,3 +1140,132 @@ function mensajearAutor(id){
   console.log("click mensaje")
   cargaChat(id)
 }
+
+
+
+//-------------------------------modo edicion
+
+let modoEdicion=false
+let rutaImgOriginal;
+document.getElementById("editor").addEventListener("click", habilitarEdicion);
+document.getElementById("guardarEdicion").addEventListener("click", editar)
+function habilitarEdicion(){
+  console.log("edicion activado")
+    let nombre = document.getElementById("nuevoNombre");
+    let apellido = document.getElementById("nuevoApellido");
+    let intereses = document.getElementById("nuevosIntereses")
+    let imagenPerfil = document.getElementById("nuevaFotoPerfil");
+    let botonGuardar = document.getElementById("guardarEdicion");
+    if(!modoEdicion){
+        modoEdicion=true;
+        nombre.style.display = "block";
+        apellido.style.display = "block";
+        intereses.style.display = "block";
+        imagenPerfil.style.display = "block";
+        botonGuardar.style.display = "block";
+        
+        rutaImgOriginal= document.getElementById("imgPerfil").src
+        console.log(rutaImgOriginal)
+        document.getElementById("editor").innerText = "Salir del editor"
+    }else{
+        modoEdicion=false;
+        nombre.style.display = "none";
+        apellido.style.display = "none";
+        intereses.style.display = "none";
+        imagenPerfil.style.display = "none";
+        botonGuardar.style.display = "none";
+        document.getElementById("imgPerfil").src = rutaImgOriginal
+        document.getElementById("editor").innerText = "Editar"
+    }
+
+}
+
+async function editar() {
+  let nombre = document.getElementById("nuevoNombre").value;
+  let apellido = document.getElementById("nuevoApellido").value;
+  let intereses = document.getElementById("nuevosIntereses").value;
+  let imagenPerfil = document.getElementById("nuevaFotoPerfil").files[0];
+
+  let nuevaRuta = "";
+  if (imagenPerfil) {
+    try {
+      
+      const formData = new FormData();
+      formData.append("foto", imagenPerfil);
+
+      const nuevaRutaResponse = await fetch("/imagen/fotoPerfil", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!nuevaRutaResponse.ok) {
+        throw new Error("Error al obtener la nueva ruta de la imagen");
+      }
+
+      nuevaRuta = await nuevaRutaResponse.text();
+    } catch (error) {
+      console.error("Error al obtener la nueva ruta de la imagen:", error);
+      return;
+    }
+  }
+
+
+  const formData = new FormData();
+  formData.append("nombre", nombre);
+  formData.append("apellido", apellido);
+  formData.append("intereses", intereses);
+
+  // Si se obtuvo una nueva ruta, la agregamos al formData, de lo contrario, agregamos el valor original de imagenPerfil
+  formData.append("imagenPerfil", nuevaRuta !== "" ? nuevaRuta : imagenPerfil);
+
+  try {
+    const editarResponse = await fetch("/perfil/editar", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!editarResponse.ok) {
+      throw new Error("Error al enviar los datos");
+    }
+
+    console.log("Datos enviados correctamente");
+    location.reload();
+  } catch (error) {
+    console.error("Error al enviar los datos:", error);
+  }
+}
+
+if (document.getElementById("nuevaFotoPerfil")) {
+  document.getElementById("nuevaFotoPerfil").addEventListener("change", mostrarVistaPreviaPerfil);
+}
+
+function mostrarVistaPreviaPerfil() {
+  console.log("Cambio");
+  const archivo = document.getElementById("nuevaFotoPerfil").files[0];
+  if (archivo) {
+    const lector = new FileReader();
+
+    lector.onload = function (e) {
+      document.getElementById("imgPerfil").setAttribute("src", e.target.result);
+    };
+
+    lector.readAsDataURL(archivo);
+  }
+}
+
+
+function mostrarVistaPreviaPerfil() {
+    console.log("Cambio")
+    const archivo = document.getElementById('nuevaFotoPerfil').files[0];
+    if (archivo) {
+      const lector = new FileReader();
+
+      lector.onload = function(e) {
+        document.getElementById('imgPerfil').setAttribute('src', e.target.result);
+      }
+
+      lector.readAsDataURL(archivo);
+    }
+  }
+
+  

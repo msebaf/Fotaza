@@ -110,3 +110,26 @@ img{
     width: 100%;
     height: 100%;
 }
+
+#nuevoNombre{
+  margin-right: 5%;
+  display: none;
+}
+
+#nuevoApellido{
+    display: none;
+
+}
+
+#nuevosIntereses{
+    width: 50%;
+    display: none;
+}
+
+#nuevaFotoPerfil{
+    display: none;
+}
+
+#guardarEdicion{
+    display: none;
+}
