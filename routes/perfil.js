@@ -30,10 +30,10 @@ router.get('/:id', async function(req, res, next) {
   console.log(req.session.user);
   let imagenes;
   let autenticado;
-
+  
   const perfilUsuario = await perfil.findOne({where: {usuarioId: req.params.id}})
- 
-
+ console.log("------------------------perfilUsuario--------------")
+  console.log(perfilUsuario)
 
   if(req.session.isAuthenticated){
     autenticado=true;
@@ -145,14 +145,14 @@ router.get('/:id', async function(req, res, next) {
         ranking/=imagen.votos.length;
         
       }
-      imagen.ranking=ranking;
+      imagen.ranking=ranking.toFixed(2);
       imagen.cantVotos=cantVotos;
       imagen.votoUsuario=votoUsuario;
       }
       //console.log("Se vienen las imagnes")
      
       
-      res.render('perfil', { autenticado, imagenes, perfilUsuario }); 
+      res.render('perfil', { autenticado, imagenes, perfilUsuario, usuarioId: req.session.usuarioId }); 
       
     } else {
       console.error(err);

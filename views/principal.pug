@@ -107,13 +107,14 @@ block content
           h3= imagen.titulo
           .row(class="datos-Row")
             .col-12
-              .datos
+              p= imagen.categoria.categoria
+              .datos(class="datosSup")
                 p= "Autor: " + imagen.autor
-                p= "Cat : "+imagen.categoria.categoria
+                
                 p(id="cantVotos"+imagen.id)= "Votos: " + imagen.cantVotos
           .row(class="datos-Row") 
             .col-12
-              .datos
+              .datos(class="datosInf")
                 p= "Fecha: " + new Date(imagen.fechaCreacion).toLocaleDateString()                
                 p= "Licencia : " + imagen.licencia.licencia
                 p(id="ranking"+imagen.id)= "Ranking: " + imagen.ranking
@@ -134,11 +135,11 @@ block content
                 if(imagen.etiqueta3)
                   .etiqueta3
                     p(id="Etiqueta3")= imagen.etiqueta3 + " " 
-          if(autenticado)
+          if(autenticado && imagen.autorId != usuarioId)
             button(onclick=`mensajearAutor(${imagen.autorId})`) enviale un mensaje al autor
           img(src="/" + imagen.ruta, alt="", id="foto" + imagen.id, onload=`watermarkImageWithText(${imagen.id}, ${autenticado}, ${imagen.privacidadId}, "${imagen.marcaAgua}")`)
           p(id="comentario-autor-foto"+imagen.id, class="comentario-autor-foto")= imagen.comentarioAutor
-          if(autenticado)
+          if(autenticado && imagen.autorId != usuarioId)
             .estrellasCont(id="estrellasCont" + imagen.id)
               if(imagen.votoUsuario == 1 || imagen.votoUsuario == 2 || imagen.votoUsuario == 3 || imagen.votoUsuario == 4 || imagen.votoUsuario == 5)
                 .estrella1(class="estrellas estrellaSelected", onclick=`click1estrella(${imagen.id}, ${imagen.votoUsuario})`)
@@ -182,6 +183,7 @@ block content
               else 
                 .estrella5(class="estrellas", onclick=`click5estrella(${imagen.id}, ${imagen.votoUsuario})`)
                   img(src="/icons/kisspng-shape-star-clip-art-5-star-5acd78a7bfdf99.0532707615234152077859.png", alt="", class="img-estrella")
+          if(autenticado)  
             form(id="formulario-comentario"+imagen.id, action="", class="form-comentario")
               .agregar-comentario 
                 input(type="number", name="nfoto", value=imagen.id, hidden="true")

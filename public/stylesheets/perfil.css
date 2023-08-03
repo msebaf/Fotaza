@@ -6,8 +6,11 @@
     align-items: center;
     justify-content: center;
     justify-items: center;
-    
+    padding-top: 5%;
+    background-color: antiquewhite;
 }
+    
+    
 
 
 
@@ -22,10 +25,31 @@
     flex-direction: row;
 
 }
+h1{
+    text-align: center;
+    margin-top: 3%;
+}
+
 
 h4{
     margin-left: 10px;
     margin-right: 10px;
+}
+
+h3{
+    width: 100%;
+    text-align: center;
+    background-color: aliceblue;
+}
+
+.datosSup{
+    border: 3px solid black;
+    border-bottom: 0px;
+}
+
+.datosInf{
+    border: 3px solid black;
+    border-top: 0px;
 }
 
 #intereses{

@@ -126,7 +126,7 @@ router.get('/', async function(req, res, next) {
         ranking/=imagen.votos.length;
         
       }
-      imagen.ranking=ranking;
+      imagen.ranking=ranking.toFixed(2);
       imagen.cantVotos=cantVotos;
       imagen.votoUsuario=votoUsuario;
       }
