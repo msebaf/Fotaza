@@ -94,7 +94,7 @@ block content
                     h3= imagen.titulo
                     .row(class="datos-Row")
                         .col-12
-                            p= imagen.categoria.categoria
+                            p(id="categoriaFoto"+imagen.id)= imagen.categoria.categoria
                             .datos(class="datosSup")
                                 p= "Autor: " + imagen.autor
                                 if(autenticado && perfilUsuario.usuarioId == usuarioId)

@@ -840,7 +840,7 @@ function filtrarPorCategoria(foto){
       console.log("foto")
       let categoria = foto.querySelector('[id^="categoriaFoto"]');
    //   console.log("-------------------------------------------")
-   //   console.log(categoria.innerText)
+      console.log(categoria.innerText)
       if(categoria.innerText ==filtroCategoria.value){
         return true;
       }else{

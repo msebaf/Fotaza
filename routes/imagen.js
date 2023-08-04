@@ -30,7 +30,7 @@ router.post("/publicar", async (req, res) => {
     const nombreImagen = ""+autorId + fecha.getDate() + fecha.getMonth() + fecha.getFullYear() + fecha.getHours() + fecha.getMinutes() + fecha.getSeconds() + foto.name;
     console.log("nombre de la imagen " + nombreImagen);
 
-    foto.mv("public/images/" + nombreImagen); // Move the uploaded image to the destination directory
+    foto.mv("public/images/" + nombreImagen); 
     const rutaImagen = "images/" + nombreImagen;
     console.log("Los datos")
     console.log(titulo)
